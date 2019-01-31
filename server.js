@@ -77,21 +77,25 @@ app.get("/", (request, respond) => {
 // });
 
 
-
-// //view specic map page
-// app.get('map/:id', (request, respond) => {
-//   if(request.session.user_id){
-//     //load specific map from database
-//     let templateVars = {user_id: request.session.user_id,
-//                         mapId: maps[request.params.id]
-//                         };
-//     respond.render('mapsEdit', templateVars); //on new create map, if null show "enter info etc."
-//   } else {
-//     //load specific map from database
-//     let templateVars = {mapId: maps[request.params.id]}
-//     respond.render('mapsShow')
-//   };
-// });
+//view specic map page
+app.get('/map/:id', (request, respond) => {
+  if(request.session.user_id){
+    //load specific map from database
+    let templateVars = {user_id: request.session.user_id,
+                        mapId: maps[request.params.id]
+                        };
+    respond.render('mapsEdit', templateVars); //on new create map, if null show "enter info etc."
+  } else {
+    knex('maps').where('id', request.params.id).then(maps => {
+      console.log(maps[0]);
+    });
+    knex('pins').where('maps_id', request.params.id).then(pins => {
+      console.log("hello", pins[0]);
+    });
+    respond.send("its good!");
+    // respond.render('mapsShow')
+  };
+});
 
 // //for creating a map
 // app.get('create/', (request, respond) => {
