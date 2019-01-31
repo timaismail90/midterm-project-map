@@ -54,7 +54,7 @@ app.get("/", (request, respond) => {
     respond.redirect('/:id');
   } else {
     knex('maps').then(maps => {
-    console.log(maps);
+    console.log(maps[0]);
     });
     respond.render('index')
   };
