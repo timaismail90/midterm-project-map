@@ -53,60 +53,62 @@ app.get("/", (request, respond) => {
   if(request.session.user_id){
     respond.redirect('/:id');
   } else {
-
+    knex('maps').then(maps => {
+    console.log(maps);
+    });
     respond.render('index')
   };
 });
 
 
-//user explore page. If not logged in redirect to guest explore page .
-app.get('/:id', (request, respond) => {
-  if(request.session.user_id){
-    //load maps in database.
-    //also load favorite maps
-    let templateVars = {user_id: userDatabase[request.session.user_id]};
-    respond.render('explore', templateVars);
-  } else {
-    respond.redirect('/');
-  };
-});
+// //user explore page. If not logged in redirect to guest explore page .
+// app.get('/:id', (request, respond) => {
+//   if(request.session.user_id){
+//     //load maps in database.
+//     //also load favorite maps
+//     let templateVars = {user_id: userDatabase[request.session.user_id]};
+//     respond.render('explore', templateVars);
+//   } else {
+//     respond.redirect('/');
+//   };
+// });
 
 
 
-//view specic map page
-app.get('map/:id', (request, respond) => {
-  if(request.session.user_id){
-    //load specific map from database
-    let templateVars = {user_id: request.session.user_id,
-                        mapId: maps[request.params.id]
-                        };
-    respond.render('mapsEdit', templateVars); //on new create map, if null show "enter info etc."
-  } else {
-    //load specific map from database
-    let templateVars = {mapId: maps[request.params.id]}
-    respond.render('mapsShow')
-  };
-});
+// //view specic map page
+// app.get('map/:id', (request, respond) => {
+//   if(request.session.user_id){
+//     //load specific map from database
+//     let templateVars = {user_id: request.session.user_id,
+//                         mapId: maps[request.params.id]
+//                         };
+//     respond.render('mapsEdit', templateVars); //on new create map, if null show "enter info etc."
+//   } else {
+//     //load specific map from database
+//     let templateVars = {mapId: maps[request.params.id]}
+//     respond.render('mapsShow')
+//   };
+// });
 
-//for creating a map
-app.get('create/', (request, respond) => {
-  if(request.session.user_id){ //if user is logged in user can fill out create map information.
-    let templateVars = {user_id: request.session.user_id,
-                        mapId: maps[request.params.id]
-                        };
-    respond.render('mapsCreate', templateVars);
-  } else {
-    respond.redirect('/') //if user is not log in redirect to homepage
-  };
-});
+// //for creating a map
+// app.get('create/', (request, respond) => {
+//   if(request.session.user_id){ //if user is logged in user can fill out create map information.
+//     let templateVars = {user_id: request.session.user_id,
+//                         mapId: maps[request.params.id]
+//                         };
+//     respond.render('mapsCreate', templateVars);
+//   } else {
+//     respond.redirect('/') //if user is not log in redirect to homepage
+//   };
+// });
 
-app.post('create/', (request, respond) => {
-  //generate new id for map.
-  //knex update map table with new map.
-  respond.redirect('map/:id'); //newly created id.
-});
+// app.post('create/', (request, respond) => {
+//   //generate new id for map.
+//   //knex update map table with new map.
+//   respond.redirect('map/:id'); //newly created id.
+// });
 
-app.post()
+// app.post()
 
 
 

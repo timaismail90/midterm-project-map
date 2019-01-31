@@ -1,0 +1,27 @@
+user stories
+
+guest:
+
+view list of maps.
+  - When map is clicked, render view map page.
+    -Able to move map, (dynamic), when map is clicked dable to drag
+    - click pins
+      -after clicking information about location is popped up.
+    -Able to Favorite maps by clicking button. map is then added to favorite map database for guest.
+-Able to favorite maps.
+-View maps already favorited.
+
+User:
+Guest features. +
+
+Create Map-
+  Enter map title and description.
+
+Add, edit , delete features map
+  -when map is clicked w/ no pin , there is an add pin option.
+  -when pin is clicked, user may edit or delete info.
+
+Profile page.
+  -view favorite maps , when click render map
+  -view contributed maps, when click render map.
+  -user info
