@@ -14,6 +14,16 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+const cookieSession = require('cookie-session');
+app.use(cookieSession({
+  name: 'session',
+  keys: ["romelsecret"]
+}))
+
+
+
+// import * as L from 'leaflet';
+
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
@@ -38,11 +48,69 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
-// Home page
-app.get("/", (req, res) => {
-  res.render("index");
+// Explor page, is user is logged in redirect to new page. else render guest explore page.
+app.get("/", (request, respond) => {
+  if(request.session.user_id){
+    respond.redirect('/:id');
+  } else {
+
+    respond.render('index')
+  };
 });
+
+
+//user explore page. If not logged in redirect to guest explore page .
+app.get('/:id', (request, respond) => {
+  if(request.session.user_id){
+    //load maps in database.
+    //also load favorite maps
+    let templateVars = {user_id: userDatabase[request.session.user_id]};
+    respond.render('explore', templateVars);
+  } else {
+    respond.redirect('/');
+  };
+});
+
+
+
+//view specic map page
+app.get('map/:id', (request, respond) => {
+  if(request.session.user_id){
+    //load specific map from database
+    let templateVars = {user_id: request.session.user_id,
+                        mapId: maps[request.params.id]
+                        };
+    respond.render('mapsEdit', templateVars); //on new create map, if null show "enter info etc."
+  } else {
+    //load specific map from database
+    let templateVars = {mapId: maps[request.params.id]}
+    respond.render('mapsShow')
+  };
+});
+
+//for creating a map
+app.get('create/', (request, respond) => {
+  if(request.session.user_id){ //if user is logged in user can fill out create map information.
+    let templateVars = {user_id: request.session.user_id,
+                        mapId: maps[request.params.id]
+                        };
+    respond.render('mapsCreate', templateVars);
+  } else {
+    respond.redirect('/') //if user is not log in redirect to homepage
+  };
+});
+
+app.post('create/', (request, respond) => {
+  //generate new id for map.
+  //knex update map table with new map.
+  respond.redirect('map/:id'); //newly created id.
+});
+
+app.post()
+
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+

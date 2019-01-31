@@ -1,0 +1,46 @@
+roughroutes.txt
+
+EXPLORE PAGE- GUEST :                             X
+
+  GET: Click on a explorable map.                 X
+
+  POST: -Register                                 --
+        -Login                                    --
+
+
+Explore Page - User:                              X
+
+  GET: -Click on a explorable map.                X
+       -Click on a favorite map.                  X
+       -Click Edit/delete a map.                  X
+       -Click on profile. :
+
+  POST:
+    -Log out.                                     --
+    -Favorite a map.                              --
+    -
+
+Profile Page :
+
+  Get:
+    -Click on a favorite map.                      X
+    -Click on contributed map.                     X
+
+
+Create Map Page:
+  Get: new map page                                x
+  Post: New map creattion Title.                   --
+
+
+Edit Map Page:
+  Get: Click on pin, view information.             --
+
+  Post:
+  -Edit Pin.                                       --
+  -Add pin.                                        --
+  -Remove Pin.                                     --
+
+
+View Map Page:
+  Get:
+    -click on pin, view information                --
