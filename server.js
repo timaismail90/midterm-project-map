@@ -56,6 +56,9 @@ app.get("/", (request, respond) => {
     knex('maps').then(maps => {
     console.log(maps[0]);
     });
+    knex('pins').then(pins => {
+    console.log(pins);
+    });
     respond.render('index')
   };
 });
