@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+
+      #map {
+        height: 100%;
+      }
+
+      html, body {
+        height: 80%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+
+
+
+  </head>
+  <body>
+    <header><h1><%=name%></h1></header>
+    <div id="map"></div>
+
+    <div id="table">
+      <table>
+        <tr><td>Name:</td> <td><input type='text' id='name'/> </td> </tr>
+        <tr><td>Description:</td> <td><input type='text' id='description'/> </td> </tr>
+        <tr><td>Image Url:</td> <td><input type='text' id='imageUrl'/> </td> </tr>
+        <tr><td></td><td><input type='button' value='Save' onclick='savePin()'/></td></tr>
+      </table>
+    </div>
+    <div id="message">Location saved</div>
+
+
+
+    <script>
+
+
+      function addMarker(data){
+        console.log(data)
+        var marker = new google.maps.Marker({
+          map:map,
+          position: {lat:data.latitudes, lng:data.longtitudes},
+        });
+
+        var infoWindow = new google.maps.InfoWindow({
+          content: `<h1>${data.title}</h1><br></br><h3>${data.description}</h3>
+                    <br><img src=${data.imageUrl} style="width:300px;">`
+        });
+
+        marker.addListener('click', function(){
+          infoWindow.open(map, marker);
+        });
+
+      }
+
+      var map;
+      var marker;
+      var infowindow;
+      var messagewindow;
+
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 43.658412, lng: -79.400037},
+          zoom: 14
+        });
+
+
+      addMarker(<%-JSON.stringify(pins[0])%>);
+      addMarker(<%-JSON.stringify(pins[1])%>);
+      addMarker(<%-JSON.stringify(pins[2])%>);
+      addMarker(<%-JSON.stringify(pins[3])%>);
+      addMarker(<%-JSON.stringify(pins[4])%>);
+
+
+      google.maps.event.addListener(map, "click", function(event) {
+        console.log("im here");
+        marker = new google.maps.Marker({
+          position: event.latLng,
+          map: map
+        });
+
+        var infoWindow = new google.maps.InfoWindow({
+          content: `HEY`
+        });
+
+
+        google.maps.event.addListener(marker, "click", function() {
+          infoWindow.open(map, marker);
+        });
+
+      });
+
+
+}//init closer
+
+
+
+
+    </script>
+
+
+    <script aync defer
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsAwJU71HsSnjN_EEj1osJHCFyC3kVdFQ&callback=initMap">
+
+    </script>
+
+
+
+
+  </body>
+</html>
