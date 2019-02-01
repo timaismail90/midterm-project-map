@@ -43,6 +43,11 @@
 
       }
 
+      let pins = <%-JSON.stringify(pins)%> ;
+      console.log(pins);
+
+
+
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -50,13 +55,11 @@
           zoom: 14
         });
 
+      for(let i = 0; i < pins.length; i++){
+        addMarker(pins[i]);
+      }
 
-      addMarker(<%-JSON.stringify(pins[0])%>);
-      addMarker(<%-JSON.stringify(pins[1])%>);
-      addMarker(<%-JSON.stringify(pins[2])%>);
-      addMarker(<%-JSON.stringify(pins[3])%>);
-      addMarker(<%-JSON.stringify(pins[4])%>);
-      addMarker(<%-JSON.stringify(pins[5])%>);
+
 
 }//init closer
 

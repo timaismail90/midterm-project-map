@@ -27,7 +27,7 @@
 
     <div id="table">
       <table>
-        <tr><td>Name:</td> <td><input type='text' id='name'/> </td> </tr>
+        <tr><td>Name:</td> <td><input type='text' id='title'/> </td> </tr>
         <tr><td>Description:</td> <td><input type='text' id='description'/> </td> </tr>
         <tr><td>Image Url:</td> <td><input type='text' id='imageUrl'/> </td> </tr>
         <tr><td></td><td><input type='button' value='Save' onclick='savePin()'/></td></tr>
@@ -41,13 +41,13 @@
       let mapId = <%=mapId%>;
 
       function savePin() {
-        var name = escape(document.getElementById("name").value);
+        var title = escape(document.getElementById("title").value);
         var description = escape(document.getElementById("description").value);
         var latlng = marker.getPosition();
         var imageUrl = escape(document.getElementById("imageUrl").value);
-        var url = "createPin?name=" + name + "&description=" + description + "&lat=" + latlng.lat() + "&lng=" + latlng.lng() + "&imageUrl=" + imageUrl + "&imapId=" + mapId;
+        var url = "createPin?&title=" + title + "&description=" + description + "&latitudes=" + latlng.lat() + "&longtitudes=" + latlng.lng() + "&imageUrl=" + imageUrl + "&maps_id=" + mapId;
 
-        // console.log(url);
+
 
         downloadUrl(url, function(data, responseCode) {
           console.log(data);
@@ -101,6 +101,10 @@
       var messagewindow;
 
 
+      let pins = <%-JSON.stringify(pins)%> ;
+      console.log(pins);
+
+
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 43.658412, lng: -79.400037},
@@ -108,11 +112,9 @@
         });
 
 
-      addMarker(<%-JSON.stringify(pins[0])%>);
-      addMarker(<%-JSON.stringify(pins[1])%>);
-      addMarker(<%-JSON.stringify(pins[2])%>);
-      addMarker(<%-JSON.stringify(pins[3])%>);
-      addMarker(<%-JSON.stringify(pins[4])%>);
+      for(let i = 0; i < pins.length; i++){
+        addMarker(pins[i]);
+      }
 
 
       google.maps.event.addListener(map, "click", function(event) {
@@ -122,11 +124,15 @@
           map: map
         });
 
+        var title = document.getElementById("title").value;
+        var description = document.getElementById("description").value;
+        var imageUrl = document.getElementById("imageUrl").value;
 
 
 
         var infoWindow = new google.maps.InfoWindow({
-          content: `HEY`
+          content: `<h1>${title}</h1><br></br><h3>${description}</h3>
+                    <br><img src=${imageUrl} style="width:300px;">`
         });
 
 

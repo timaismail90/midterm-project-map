@@ -27,7 +27,7 @@ let templateVars;
 
 let mapName="";
 
-
+let pinData = [];
 
 
 // import * as L from 'leaflet';
@@ -119,17 +119,23 @@ app.get('/map/:id', (request, respond) => {
   };
 });
 
+
+//recieves add pin information
   app.get('/test/createPin', (request, respond) => {
-    knex('pins').insert({name:request.body.title, latitude:43.658412, longtitude:-79.400037 })
-    console.log(request);
-    respond.send("its OK!");
+    knex('pins').insert(request.query)
+    .then( function (result) {
+          respond.json({ success: true, message: 'ok' });     // respond back to request
+       });
+    console.log(request.query);
+    // pinData = request.
+
   });
 
 
 
 
 
-//this will go under map id when cookie is enabled.
+//this will go under map id when cookie is enabled. this is for adding/edit/delete pins
   app.get('/test/:id', (request, respond) => {
     knex('pins')
     .where('maps_id', request.params.id)
@@ -163,13 +169,13 @@ app.get('/map/:id', (request, respond) => {
 //   };
 // });
 
-
+//create map page. user adds a title .
 app.get('/testCreate', (request, respond) => {
   respond.render('mapBuild', templateVars);
 })
 
 
-
+//post after user enters title. adds map to maps database, then loads the map.
 app.post('/create/', (request, respond) => {
   console.log(request.body.title);
 

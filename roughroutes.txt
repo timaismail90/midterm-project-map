@@ -44,3 +44,8 @@ Edit Map Page:
 View Map Page:
   Get:
     -click on pin, view information                --
+
+
+
+sanitize data..
+late headers.
