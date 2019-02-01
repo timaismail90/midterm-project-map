@@ -22,13 +22,8 @@ app.use(cookieSession({
 
 let mapId = "";
 
-let latitudes = [];
-let longitudes = [];
-let title = [];
-let description = [];
 
 let templateVars;
-let coordinates = [];
 
 let mapName="";
 
@@ -104,25 +99,13 @@ app.get('/map/:id', (request, respond) => {
     knex('pins')
     .where('maps_id', request.params.id)
     .then(pins => {
-    // console.log(pins);
-    // console.log(pins.length);
-    for(let i = 0; i < pins.length; i++){
-       coordinates[i] = {lat: pins[i].latitudes, lng: pins[i].longtitudes}
-    }
     knex('maps')
     .where('id', request.params.id)
     .then(maps => {
       mapName = maps[0].name;
     })
-    // templateVars = {
-    //                 title: pins[0].title,
-    //                 descrip: pins[0].description,
-    //                 latitudes:pins[0].latitudes,
-    //                 longitudes:pins[0].longtitudes
-    // }
-    // console.log(pins[0]);
+
     templateVars = {
-      coords: coordinates,
       pins: pins,
       length:pins.length,
       name:mapName
