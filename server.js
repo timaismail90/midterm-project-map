@@ -28,6 +28,8 @@ let templateVars;
 let mapName="";
 
 
+
+
 // import * as L from 'leaflet';
 
 // Seperated Routes for each Resource
@@ -118,8 +120,10 @@ app.get('/map/:id', (request, respond) => {
 });
 
   app.get('/test/createPin', (request, respond) => {
+    knex('pins').insert({name:request.body.title, latitude:43.658412, longtitude:-79.400037 })
+    console.log(request);
     respond.send("its OK!");
-  }
+  });
 
 
 
@@ -134,12 +138,14 @@ app.get('/map/:id', (request, respond) => {
     .where('id', request.params.id)
     .then(maps => {
       mapName = maps[0].name;
+      mapId = maps[0].id
     })
-
+    console.log(mapId);
     templateVars = {
       pins: pins,
       length:pins.length,
-      name:mapName
+      name:mapName,
+      mapId:mapId
     }
     respond.render('mapEdit', templateVars);
     });
@@ -157,11 +163,28 @@ app.get('/map/:id', (request, respond) => {
 //   };
 // });
 
-app.post('create/', (request, respond) => {
-  //knex update map table with new map.
 
-  knex('maps').insert({name:request.body.title, latitude:43.658412, longtitude:-79.400037 })
-  respond.redirect(`map/${request.body.title}`); //newly created id.
+app.get('/testCreate', (request, respond) => {
+  respond.render('mapBuild', templateVars);
+})
+
+
+
+app.post('/create/', (request, respond) => {
+  console.log(request.body.title);
+
+  knex('maps')
+  .insert({name:request.body.title, latitudes:43.658412, longtitudes:-79.400037 })
+  .then(function () {
+    knex('maps')
+   .where('name', request.body.title)
+   .then(maps => {
+      mapId = maps[0].id;
+      console.log(maps);
+      console.log("tst", mapId)
+      respond.redirect(`/test/${mapId}`); //newly created id.
+    });
+  })
 });
 
 
