@@ -94,7 +94,7 @@ app.get('/map/:id', (request, respond) => {
     // let templateVars = {user_id: request.session.user_id,
     //                     mapId: maps[request.params.id]
     //                     };
-    respond.render('mapsEdit', templateVars); //on new create map, if null show "enter info etc."
+    respond.render('mapEdit', templateVars); //on new create map, if null show "enter info etc."
   } else {
     knex('pins')
     .where('maps_id', request.params.id)
@@ -117,11 +117,33 @@ app.get('/map/:id', (request, respond) => {
   };
 });
 
+  app.get('/test/createPin', (request, respond) => {
+    respond.send("its OK!");
+  }
 
-    // knex('pins').where('maps_id', request.params.id).then(pins => {
-    //   console.log("hello", pins[0]);
-    // });
 
+
+
+
+//this will go under map id when cookie is enabled.
+  app.get('/test/:id', (request, respond) => {
+    knex('pins')
+    .where('maps_id', request.params.id)
+    .then(pins => {
+    knex('maps')
+    .where('id', request.params.id)
+    .then(maps => {
+      mapName = maps[0].name;
+    })
+
+    templateVars = {
+      pins: pins,
+      length:pins.length,
+      name:mapName
+    }
+    respond.render('mapEdit', templateVars);
+    });
+  });
 
 // //for creating a map
 // app.get('create/', (request, respond) => {
@@ -135,13 +157,13 @@ app.get('/map/:id', (request, respond) => {
 //   };
 // });
 
-// app.post('create/', (request, respond) => {
-//   //generate new id for map.
-//   //knex update map table with new map.
-//   respond.redirect('map/:id'); //newly created id.
-// });
+app.post('create/', (request, respond) => {
+  //knex update map table with new map.
 
-// app.post()
+  knex('maps').insert({name:request.body.title, latitude:43.658412, longtitude:-79.400037 })
+  respond.redirect(`map/${request.body.title}`); //newly created id.
+});
+
 
 
 
