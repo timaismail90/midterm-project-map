@@ -20,12 +20,26 @@ app.use(cookieSession({
   keys: ["romelsecret"]
 }))
 
+let mapId = "";
+
+let latitudes = [];
+let longitudes = [];
+let title = [];
+let description = [];
+
+let templateVars;
+let coordinates = [];
+
 
 
 // import * as L from 'leaflet';
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+
+
+const loadMap = require('./public/scripts/app')
+// import initMap from './public/scripts/app';
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -81,21 +95,43 @@ app.get("/", (request, respond) => {
 app.get('/map/:id', (request, respond) => {
   if(request.session.user_id){
     //load specific map from database
-    let templateVars = {user_id: request.session.user_id,
-                        mapId: maps[request.params.id]
-                        };
+    // let templateVars = {user_id: request.session.user_id,
+    //                     mapId: maps[request.params.id]
+    //                     };
     respond.render('mapsEdit', templateVars); //on new create map, if null show "enter info etc."
   } else {
-    knex('maps').where('id', request.params.id).then(maps => {
-      console.log(maps[0]);
+    knex('pins')
+    .where('maps_id', request.params.id)
+    .then(pins => {
+    console.log(pins);
+    console.log(pins.length);
+    for(let i = 0; i < pins.length; i++){
+       coordinates[i] = {lat: pins[i].latitudes, lng: pins[i].longtitudes}
+    }
+    // templateVars = {
+    //                 title: pins[0].title,
+    //                 descrip: pins[0].description,
+    //                 latitudes:pins[0].latitudes,
+    //                 longitudes:pins[0].longtitudes
+    // }
+    console.log(pins[0]);
+    templateVars = {
+      coords: coordinates,
+      pins: pins,
+      length:pins.length
+    }
+
+    respond.render('mapShow', templateVars);
     });
-    knex('pins').where('maps_id', request.params.id).then(pins => {
-      console.log("hello", pins[0]);
-    });
-    respond.send("its good!");
-    // respond.render('mapsShow')
+
   };
 });
+
+
+    // knex('pins').where('maps_id', request.params.id).then(pins => {
+    //   console.log("hello", pins[0]);
+    // });
+
 
 // //for creating a map
 // app.get('create/', (request, respond) => {
