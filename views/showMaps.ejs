@@ -4,6 +4,7 @@
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/styles/cards.css" type="text/css" />
     <style>
 
       #map {
@@ -17,12 +18,25 @@
       }
     </style>
 
-
-
-
   </head>
+
   <body>
-    <header><h1><%=name%></h1></header>
+
+    
+      <header class="masthead clear">
+          <div class="centered">
+        
+            <div class="site-branding">
+              <h1 class="site-title">View Map</h1>
+            </div>
+            <!-- .site-title -->
+          </div>
+          <!-- .centered -->
+        </header>
+        <!-- .masthead -->
+
+
+    <h1><%=name%></h1>
     <div id="map"></div>
     <script>
       function addMarker(data){
