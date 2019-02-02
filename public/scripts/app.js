@@ -17,10 +17,10 @@ function deletePin(){
         markers[i].setMap(null);
       }
   }
-  // $.post("/delete", function(data, status) {
-  //   console.log(data);
-  //   console.log(status);
-  // });
+  $.post("/delete", function(data, status) {
+    console.log(data);
+    console.log(status);
+  });
 }
 
 
