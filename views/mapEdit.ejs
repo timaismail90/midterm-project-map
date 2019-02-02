@@ -61,9 +61,9 @@
         var marker = new google.maps.Marker({
           map:map,
           position: {lat:data.latitudes, lng:data.longtitudes},
-          id:data.id
+          pin:data
         });
-        markers.unshift(marker)
+        markers.unshift(marker) //places marker in an array called marker.
 
         var infoWindow = new google.maps.InfoWindow({
           content: `<h1>${data.title}</h1><br></br>
@@ -91,13 +91,20 @@
       let marker;
       let infowindow;
       let messagewindow;
+
+      //when pin is clicked it information is placed in arrays, that information is first in the array.
       let lastPin = []; //pin id of last pin clicked.
+      let lastTitle = [];
+      let lastDescription = [];
+      let lastUrl = [];
+
+
       let markers = [];
 
 
       let pins = <%-JSON.stringify(pins)%> ;
-      // console.log(pins);
-      let searchId = pins[pins.length - 1].id;
+      console.log(pins);
+
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -136,8 +143,8 @@
 
 
         google.maps.event.addListener(marker, "click", function() {
-          searchId = searchId + 1;
-          lastPin.unshift(searchId);
+
+
           infoWindow.open(map, marker);
         });
 

@@ -14,7 +14,7 @@ function deletePin(){
   event.preventDefault();
 
   for(let i = 0; i < markers.length; i++){
-      if(lastPin[0] === markers[i].id){
+      if(lastPin[0] === markers[i].pin.id){
         console.log("deleted Pin", lastPin[0]);
         markers[i].setMap(null);
       }
@@ -22,8 +22,7 @@ function deletePin(){
    //converting to string to pass through post request, int wont work
 
   $.post("/delete", {"id":lastPin[0]} , function(data, status) {
-    // console.log(data);
-    // console.log(status);
+
   });
 }
 
