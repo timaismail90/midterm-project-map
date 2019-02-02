@@ -207,10 +207,41 @@ app.post('/delete/', (request, respond) => {
 
 app.post('/edit/', (request, respond) => {
   console.log("HEYHEYHEY");
-  console.log(request);
+  // console.log(request);
+  // knex('pins')
+  //   .where(
+  //   'title', request.body.title
+  //   )
+  //   .update({
+  //     title: request.body.New
+  //   })
+  //   .then(function () {
+  //     respond.json({success:true});
+  //   });
+  knex('pins')
+    .where('title', request.body.title)
+    .then((pin) => {
+      console.log(pin);
+      if(pin.length){
+        knex('pins')
+        .update({
+          title: request.body.titleNew,
+          description: request.body.descriptionNew,
+          imageUrl: request.body.imageUrlNew
+        })
+        .where('title', request.body.title)
+        .returning('*')
+        .then((newPin) => {
+          console.log('newPin:', newPin);
+        })
+      }
 
 
-  respond.send('okay');
+    })
+
+
+
+
 });
 
 
