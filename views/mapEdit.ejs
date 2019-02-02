@@ -57,7 +57,6 @@
 
       function addMarker(data){
         // console.log(data.id)
-
 //this creates pins on map from the data we have passed to it.
         var marker = new google.maps.Marker({
           map:map,
@@ -78,8 +77,8 @@
         marker.addListener('click', function(){
           infoWindow.open(map, marker);
           lastPin.unshift(data.id);  //places element in front of array
-          console.log(lastPin);
-          console.log("what", markers[0].id);
+          // console.log(lastPin);
+          // console.log("what", markers[0].id);
 
         });
 
@@ -98,7 +97,7 @@
 
       let pins = <%-JSON.stringify(pins)%> ;
       // console.log(pins);
-
+      let searchId = pins[pins.length - 1].id;
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -127,9 +126,9 @@
 
 
         var infoWindow = new google.maps.InfoWindow({
-          content: `<h1>${data.title}</h1><br></br>
-                      <h3>${data.description}</h3>
-                        <br><img src=${data.imageUrl} style="width:300px;">
+          content: `<h1>${title}</h1><br></br>
+                      <h3>${description}</h3>
+                        <br><img src=${imageUrl} style="width:300px;">
                         <form action="/delete/"  method="POST">
                           <input type='submit' value='delete' onclick='deletePin()'/>
                         </form>`
@@ -137,7 +136,8 @@
 
 
         google.maps.event.addListener(marker, "click", function() {
-
+          searchId = searchId + 1;
+          lastPin.unshift(searchId);
           infoWindow.open(map, marker);
         });
 

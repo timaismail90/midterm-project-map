@@ -12,14 +12,18 @@
 
 function deletePin(){
   event.preventDefault();
+
   for(let i = 0; i < markers.length; i++){
       if(lastPin[0] === markers[i].id){
+        console.log("deleted Pin", lastPin[0]);
         markers[i].setMap(null);
       }
   }
-  $.post("/delete", function(data, status) {
-    console.log(data);
-    console.log(status);
+   //converting to string to pass through post request, int wont work
+
+  $.post("/delete", {"id":lastPin[0]} , function(data, status) {
+    // console.log(data);
+    // console.log(status);
   });
 }
 

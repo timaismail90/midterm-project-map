@@ -195,7 +195,13 @@ app.post('/create/', (request, respond) => {
 
 
 app.post('/delete/', (request, respond) => {
-  console.log("alright");
+  console.log("eh", request.body.id);
+  knex('pins')
+    .where( {id: request.body.id})
+    .del()
+    .then(function () {
+      respond.json({sucess: true});
+    });
 });
 
 
