@@ -41,7 +41,10 @@ $(document).ready(function() {
     $.ajax({
       type: "POST",
       url: '/favourites',
-      // serializ
+      data: {
+        user_id: 1,
+        map_id: 1
+      },
       success: function(data) {}
     })
   })
