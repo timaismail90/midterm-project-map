@@ -5,7 +5,7 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/cards.css" type="text/css" />
     
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -18,53 +18,75 @@
   </head>
   <body>
      
-      <div class="container">
-
-          <header>
-            <h2><a href="index.ejs"><i class="ion-plane"></i>LUNO</a></h2>
-            <nav>
-              <ul>
-                <li>
-                  <a href="#" title="Explore">EXPLORE MAPS</a>
-                </li>
-                <li>
-                  <a href="#" title="Trending">TRENDING</a>
-                </li>
-                <li>
-                  <a href="#" title="Login">LOGIN</a>
-                </li>
-                <li>
-                  <a class="btn" href="#" title="Register / Log In">BUILD YOUR MAP🗺</a>
-                </li>
-              </ul>
-            </nav>
-          </header>
+      <header class="masthead clear">
+          <div class="centered">
         
-          <div class="cover">
-            <h1>Discover what's out there.</h1>
-            <form  class="flex-form">
-              <label for="from">
-                <i class="ion-location"></i>
-              </label>
-              <input type="search" placeholder="Where do you want to go?">
-              <input type="submit" value="Search">
-            </form>
-            <div id="madeby">
+            <div class="site-branding">
+              <h1 class="site-title">Explore Trending Maps</h1>
             </div>
+            <!-- .site-title -->
           </div>
-        </div>
-
-        <div class="container">
-            <div class="item item1"></div>
-            <div class="item item2"></div>
-            <div class="item item3"></div>
-            <div class="item item4"></div>
-            <div class="item item5"></div>
-            <div class="item item5"></div>
+          <!-- .centered -->
+        </header>
+        <!-- .masthead -->
+        
+        <main class="main-area">
+        
+          <div class="centered">
+        
+            <section class="cards">
+        
+              <article class="card">
+                <a href="#">
+                  <figure class="thumbnail">
+                  <img src="http://dontai.com/wp/wp-content/uploads/2018/04/google-maps-stc-2018-4-4.png" alt="meow">
+                  </figure>
+                  <div class="card-content">
+                    <h2>Map Name 1</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum explicabo consequatur consectetur fugit molestias perferendis, sint error iste ut, facilis sunt natus optio dolor nesciunt laboriosam obcaecati corporis numquam.</p>
+                  </div>
+                  <!-- .card-content -->
+                </a>
+              </article>
+              <!-- .card -->
+        
+              <article class="card">
+                <a href="#">
+                  <figure class="thumbnail">
+                    <img src="http://dontai.com/wp/wp-content/uploads/2018/04/google-maps-stc-2018-4-4.png" alt="meow">
+                  </figure>
+                  <div class="card-content">
+                    <h2>Map Name 2</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum explicabo consequatur consectetur fugit molestias perferendis, sint error iste ut, facilis sunt natus optio dolor nesciunt laboriosam obcaecati corporis numquam?</p>
+                  </div>
+                  <!-- .card-content -->
+                </a>
+              </article>
+              <!-- .card -->
+        
+              <article class="card">
+                <a href="#">
+                  <figure class="thumbnail">
+                    <img src="http://dontai.com/wp/wp-content/uploads/2018/04/google-maps-stc-2018-4-4.png" alt="meow">
+                  </figure>
+                  <div class="card-content">
+                    <h2>Map Name 3</h2>
+                    <p>  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati recusandae expedita doloribus dicta cumque nostrum, autem eaque soluta atque voluptatem est et, laborum dignissimos error sequi non? Recusandae, aut alias.</p>
+                  </div>
+                  <!-- .card-content -->
+                </a>
+              </article>
+              <!-- .card -->
+        
+              <!-- .card -->
+        
+            </section>
+            <!-- .cards -->
+        
           </div>
-    
-    
-    
+          <!-- .centered -->
+        
+        </main>
     
     
       </body>
