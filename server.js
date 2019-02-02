@@ -201,9 +201,19 @@ app.post('/delete/', (request, respond) => {
     })
     .del()
     .then(function () {
-      respond.json({sucess: true});
+      respond.json({success: true});
     });
 });
+
+app.post('/edit/', (request, respond) => {
+  console.log("HEYHEYHEY");
+  console.log(request);
+
+
+  respond.send('okay');
+});
+
+
 
 
 

@@ -28,6 +28,7 @@ function deletePin(){
 
 //using ajax to make post request, will be handled by server.js. passing in object of info of the deleted pin.
   $.post("/delete", {"title": lastTitle[0], "description": lastDescription[0], "imageUrl": lastUrl[0]} , function(data, status) {
+    console.log(status);
   });
 }
 
@@ -51,14 +52,28 @@ function savePin() {
 }
 
 function editPinRender(){
+
   event.preventDefault();
   let title = $('#titleEdit').val();
   let description = $('#descriptionEdit').val();
   let imageUrl = $('#imageUrlEdit').val();
 
   console.log(title, description, imageUrl);
-}
 
+  const editData = {
+      "title": lastTitle[0],
+      "description": lastDescription[0],
+      "imageUrl": lastUrl[0],
+      "titleNew": title,
+      "descriptionNew": description,
+      "imageUrlNew": imageUrl
+  }
+
+  $.post("/edit", editData, function(data, status) {
+    console.log(status);
+  });
+
+}
 
 
 
