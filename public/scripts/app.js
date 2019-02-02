@@ -14,15 +14,20 @@ function deletePin(){
   event.preventDefault();
 
   for(let i = 0; i < markers.length; i++){
-      if(lastPin[0] === markers[i].pin.id){
-        console.log("deleted Pin", lastPin[0]);
-        markers[i].setMap(null);
+    // console.log("where")
+    // console.log(lastTitle[0], lastDescription[0], lastUrl[0]);
+    // console.log(markers[i].pin.title, markers[i].pin.description, markers[i].pin.imageUrl);
+
+    //uses "last" array, to see last pin clicked, then cycles through all pins aka markers and compares values, if values match delete.
+
+      if(lastTitle[0] === markers[i].pin.title && lastDescription[0] === markers[i].pin.description && lastUrl[0] === markers[i].pin.imageUrl){ //set to equal dscrip, title , and url
+        console.log("deleted Pin", lastTitle[0], lastDescription[0], lastUrl[0]);
+        markers[i].setMap(null); //hides pin from map.
       }
   }
-   //converting to string to pass through post request, int wont work
 
-  $.post("/delete", {"id":lastPin[0]} , function(data, status) {
-
+//using ajax to make post request, will be handled by server.js. passing in object of info of the deleted pin.
+  $.post("/delete", {"title": lastTitle[0], "description": lastDescription[0], "imageUrl": lastUrl[0]} , function(data, status) {
   });
 }
 

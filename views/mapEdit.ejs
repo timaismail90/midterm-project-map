@@ -77,8 +77,11 @@
         marker.addListener('click', function(){
           infoWindow.open(map, marker);
           lastPin.unshift(data.id);  //places element in front of array
-          // console.log(lastPin);
-          // console.log("what", markers[0].id);
+          lastTitle.unshift(data.title);
+          lastDescription.unshift(data.description);
+          lastUrl.unshift(data.imageUrl);
+
+          console.log(lastTitle[0], lastDescription[0], lastUrl[0]);
 
         });
 
@@ -103,7 +106,7 @@
 
 
       let pins = <%-JSON.stringify(pins)%> ;
-      console.log(pins);
+      // console.log(pins);
 
 
       function initMap() {
@@ -120,15 +123,23 @@
 
       google.maps.event.addListener(map, "click", function(event) {
         // console.log("im here");
+
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+        const imageUrl = document.getElementById("imageUrl").value;
+
+        let pin = {
+          "title":title,
+          "description":description,
+          "imageUrl":imageUrl
+        }
+
         marker = new google.maps.Marker({
           position: event.latLng,
-          map: map
+          map: map,
+          pin:pin
         });
         markers.unshift(marker);
-
-        var title = document.getElementById("title").value;
-        var description = document.getElementById("description").value;
-        var imageUrl = document.getElementById("imageUrl").value;
 
 
 
@@ -141,9 +152,17 @@
                         </form>`
         });
 
+        // marker[title] = `${title}`;
+        // marker[description] = `${description}`;
+        // marker[imageUrl] = `${imageUrl}`;
 
         google.maps.event.addListener(marker, "click", function() {
+          // lastPin.unshift(data.id);  //places element in front of array
+          lastTitle.unshift(title);
+          lastDescription.unshift(description);
+          lastUrl.unshift(imageUrl);
 
+          // console.log(lastTitle[0], lastDescription[0], lastUrl[0]);
 
           infoWindow.open(map, marker);
         });

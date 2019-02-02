@@ -178,7 +178,6 @@ app.get('/testCreate', (request, respond) => {
 //post after user enters title. adds map to maps database, then loads the map.
 app.post('/create/', (request, respond) => {
   console.log(request.body.title);
-
   knex('maps')
   .insert({name:request.body.title, latitudes:43.658412, longtitudes:-79.400037 })
   .then(function () {
@@ -195,9 +194,13 @@ app.post('/create/', (request, respond) => {
 
 
 app.post('/delete/', (request, respond) => {
-  console.log("eh", request.body.id);
+  console.log("eh", request.body);
   knex('pins')
-    .where( {id: request.body.id})
+    .where({
+    title: request.body.title,
+    description: request.body.title,
+    imageUrl: request.body.imageUrl
+    })
     .del()
     .then(function () {
       respond.json({sucess: true});
