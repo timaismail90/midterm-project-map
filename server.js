@@ -171,12 +171,22 @@ app.get('/favourites', (req, res) => {
 
 
 app.post('/favourites', (req, res) => {
-  console.log('favourites')
-  res.redirect('mapshow')
+  const favorite_maps = req.body;
+  for (let requiredParameter of ['user_id', 'map_id']) {
+    knex('favorite_maps').insert(favorite_maps, 'user_id'
+        'map_id')
+      .then(favorite_maps => {
+        res.status(201).json({ user_id: user_id[0] })
+      })
+      .catch(error => {
+        res.status(500).json({ error });
+      });
+  };
 
-})
+  //   console.log('favourites')
+  //   res.redirect('mapshow')
 
-
+});
 
 
 
