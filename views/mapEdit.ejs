@@ -36,6 +36,13 @@
         <tr><td></td><td><input type='button' value='Save' onclick='savePin()'/></td></tr>
       </table>
     </div>
+    <br></br>
+    <form action="/edit/"  method="POST">
+      Name:<input id="titleEdit" type="text" name="title" > <br></br>
+      Description:<input id="descriptionEdit" type="text" name="description" > <br></br>
+      Image Url:<input id="imageUrlEdit" type="text" name="imageUrl"> <br></br>
+      <input type='submit' value='edit' onclick='deletePin()'/>
+    </form>`
 
 
     <div id="message">Location saved</div>
@@ -71,7 +78,8 @@
                         <br><img src=${data.imageUrl} style="width:300px;">
                         <form action="/delete/"  method="POST">
                           <input type='submit' value='delete' onclick='deletePin()'/>
-                        </form>`
+                        </form>
+                        <input type='submit' value='edit' onclick='editPin()'/>`
         });
 
         marker.addListener('click', function(){
@@ -149,7 +157,8 @@
                         <br><img src=${imageUrl} style="width:300px;">
                         <form action="/delete/"  method="POST">
                           <input type='submit' value='delete' onclick='deletePin()'/>
-                        </form>`
+                        </form>
+                       <input type='submit' value='edit' onclick='editPin()'/>`
         });
 
         // marker[title] = `${title}`;

@@ -50,6 +50,12 @@ function savePin() {
   });
 }
 
+function editPin(){
+  console.log('909');
+  $('#titleEdit').val("kobe");
+  $('#descriptionEdit').val("kobe");
+  $('#imageUrlEdit').val("kobe");
+}
 
 
 
