@@ -9,23 +9,42 @@
 //   });;
 // });
 
-// module.exports = {
-
-//   initMap: function(latitude, longitude){
-//       let map = "";
-//       map = new google.maps.Map(document.getElementById('map'), {
-//         center: {lat: `${latitude}`, lng: `${longitude}`},
-//         zoom: 14
-//       });
-//   }
-// };
 
 
-function initMap(latitudes,longtitudes) {
-  var map;
-  console.log("tst", latitudes,longtitudes);
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 60, lng: 60},
-    zoom: 14
+function savePin() {
+  var title = escape(document.getElementById("title").value);
+  var description = escape(document.getElementById("description").value);
+  var latlng = marker.getPosition();
+  var imageUrl = escape(document.getElementById("imageUrl").value);
+  var url = "createPin?&title=" + title + "&description=" + description + "&latitudes=" + latlng.lat() + "&longtitudes=" + latlng.lng() + "&imageUrl=" + imageUrl + "&maps_id=" + mapId;
+
+
+
+  downloadUrl(url, function(data, responseCode) {
+    console.log(data);
+    if (responseCode == 200 && data.length <= 1) {
+      infowindow.close();
+      messagewindow.open(map, marker);
+    }
   });
+}
+
+
+
+
+
+function downloadUrl(url, callback) {
+  var request = window.ActiveXObject ?
+      new ActiveXObject('Microsoft.XMLHTTP') :
+      new XMLHttpRequest;
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      request.onreadystatechange = null;
+      callback(request.responseText, request.status);
+    }
+  };
+
+  request.open('GET', url, true);
+  request.send(null);
 }

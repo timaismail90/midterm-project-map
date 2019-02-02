@@ -17,8 +17,8 @@
       }
     </style>
 
-
-
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+      <script type="text/javascript" src="/scripts/app.js"></script>
 
   </head>
   <body>
@@ -33,76 +33,70 @@
         <tr><td></td><td><input type='button' value='Save' onclick='savePin()'/></td></tr>
       </table>
     </div>
+      <input type='button' value='delete' onclick='deletePin()'/>
+
+
     <div id="message">Location saved</div>
 
 
 
     <script>
-      let mapId = <%=mapId%>;
+      let mapId = <%=mapId%>; //setting the id on the current map we are working on
 
-      function savePin() {
-        var title = escape(document.getElementById("title").value);
-        var description = escape(document.getElementById("description").value);
-        var latlng = marker.getPosition();
-        var imageUrl = escape(document.getElementById("imageUrl").value);
-        var url = "createPin?&title=" + title + "&description=" + description + "&latitudes=" + latlng.lat() + "&longtitudes=" + latlng.lng() + "&imageUrl=" + imageUrl + "&maps_id=" + mapId;
-
-
-
-        downloadUrl(url, function(data, responseCode) {
-          console.log(data);
-          if (responseCode == 200 && data.length <= 1) {
-            infowindow.close();
-            messagewindow.open(map, marker);
-          }
-        });
+      function deletePin(){
+        for(let i = 0; i < markers.length; i++){
+            if(lastPin[0] === markers[i].id){
+              markers[i].setMap(null);
+            }
+        }
       }
 
 
-      function downloadUrl(url, callback) {
-        var request = window.ActiveXObject ?
-            new ActiveXObject('Microsoft.XMLHTTP') :
-            new XMLHttpRequest;
-
-        request.onreadystatechange = function() {
-          if (request.readyState == 4) {
-            request.onreadystatechange = null;
-            callback(request.responseText, request.status);
-          }
-        };
-
-        request.open('GET', url, true);
-        request.send(null);
+      function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);  //google's markers has a function called setmap, which sets the marker at map.
+        }
       }
-
-
 
       function addMarker(data){
-        // console.log(data)
+        // console.log(data.id)
+
+//this creates pins on map from the data we have passed to it.
         var marker = new google.maps.Marker({
           map:map,
           position: {lat:data.latitudes, lng:data.longtitudes},
+          id:data.id
         });
+        markers.unshift(marker)
 
         var infoWindow = new google.maps.InfoWindow({
           content: `<h1>${data.title}</h1><br></br><h3>${data.description}</h3>
-                    <br><img src=${data.imageUrl} style="width:300px;">`
+                    <br><img src=${data.imageUrl} style="width:300px;"> <input type='button' value='delete' onclick='deletePin()'/>`
         });
 
         marker.addListener('click', function(){
           infoWindow.open(map, marker);
+          lastPin.unshift(data.id);  //places element in front of array
+          console.log(lastPin);
+          console.log("what", markers[0].id);
+
         });
 
       }
 
-      var map;
-      var marker;
-      var infowindow;
-      var messagewindow;
+
+
+
+      let map;
+      let marker;
+      let infowindow;
+      let messagewindow;
+      let lastPin = []; //pin id of last pin clicked.
+      let markers = [];
 
 
       let pins = <%-JSON.stringify(pins)%> ;
-      console.log(pins);
+      // console.log(pins);
 
 
       function initMap() {
@@ -123,6 +117,7 @@
           position: event.latLng,
           map: map
         });
+        markers.unshift(marker);
 
         var title = document.getElementById("title").value;
         var description = document.getElementById("description").value;
@@ -132,11 +127,12 @@
 
         var infoWindow = new google.maps.InfoWindow({
           content: `<h1>${title}</h1><br></br><h3>${description}</h3>
-                    <br><img src=${imageUrl} style="width:300px;">`
+                    <br><img src=${imageUrl} style="width:300px;"> <input type='button' value='delete' onclick='deletePin()'/>`
         });
 
 
         google.maps.event.addListener(marker, "click", function() {
+
           infoWindow.open(map, marker);
         });
 
