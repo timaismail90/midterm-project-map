@@ -33,11 +33,11 @@ function deletePin(){
 
 
 function savePin() {
-  var title = escape(document.getElementById("title").value);
-  var description = escape(document.getElementById("description").value);
-  var latlng = marker.getPosition();
-  var imageUrl = escape(document.getElementById("imageUrl").value);
-  var url = "createPin?&title=" + title + "&description=" + description + "&latitudes=" + latlng.lat() + "&longtitudes=" + latlng.lng() + "&imageUrl=" + imageUrl + "&maps_id=" + mapId;
+  let title = escape(document.getElementById("title").value);
+  let description = escape(document.getElementById("description").value);
+  let latlng = marker.getPosition();
+  let imageUrl = escape(document.getElementById("imageUrl").value);
+  let url = "createPin?&title=" + title + "&description=" + description + "&latitudes=" + latlng.lat() + "&longtitudes=" + latlng.lng() + "&imageUrl=" + imageUrl + "&maps_id=" + mapId;
 
 
 
@@ -49,6 +49,18 @@ function savePin() {
     }
   });
 }
+
+function editPinRender(){
+  event.preventDefault();
+  let title = $('#titleEdit').val();
+  let description = $('#descriptionEdit').val();
+  let imageUrl = $('#imageUrlEdit').val();
+
+  console.log(title, description, imageUrl);
+}
+
+
+
 
 function editPin(){
   console.log('909');
