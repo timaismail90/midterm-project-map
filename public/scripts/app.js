@@ -52,9 +52,9 @@ function savePin() {
 
 function editPin(){
   console.log('909');
-  $('#titleEdit').val("kobe");
-  $('#descriptionEdit').val("kobe");
-  $('#imageUrlEdit').val("kobe");
+  $('#titleEdit').val(lastTitle[0]);
+  $('#descriptionEdit').val(lastDescription[0]);
+  $('#imageUrlEdit').val(lastUrl[0]);
 }
 
 
