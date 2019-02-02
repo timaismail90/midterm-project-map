@@ -22,6 +22,8 @@ app.use(cookieSession({
 
 let mapId = "";
 
+//what user is logged in last. User must exist in database for knex to work .
+let userLogged = "";
 
 let templateVars;
 
@@ -66,10 +68,10 @@ app.get("/", (request, respond) => {
     respond.redirect('/:id');
   } else {
     knex('maps').then(maps => {
-    console.log(maps[0]);
+    // console.log(maps[0]);
     });
     knex('pins').then(pins => {
-    console.log(pins);
+    // console.log(pins);
     });
     respond.render('index')
   };
@@ -112,7 +114,7 @@ app.get('/map/:id', (request, respond) => {
       length:pins.length,
       name:mapName
     }
-
+    console.log(userLogged);
     respond.render('mapShow', templateVars);
     });
 
@@ -173,6 +175,27 @@ app.get('/map/:id', (request, respond) => {
 app.get('/testCreate', (request, respond) => {
   respond.render('mapBuild', templateVars);
 })
+
+
+
+app.post("/login", (request, respond) => {
+  console.log("hey", request.body.username);
+  userLogged = request.body.username;
+  request.session.id = request.body.username
+  respond.redirect("/");
+});
+
+
+
+
+
+// app.get('/login/:id', (request, respond) => {
+//   request.session.user_id = request.params.id;
+//   respond.redirect('/');
+// });
+
+
+
 
 
 //post after user enters title. adds map to maps database, then loads the map.
