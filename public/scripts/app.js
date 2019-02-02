@@ -21,11 +21,38 @@
 // };
 
 
-function initMap(latitudes,longtitudes) {
+
+
+function initMap(latitudes, longtitudes) {
   var map;
-  console.log("tst", latitudes,longtitudes);
+  console.log("tst", latitudes, longtitudes);
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 60, lng: 60},
+    center: { lat: 60, lng: 60 },
     zoom: 14
   });
 }
+
+
+$(document).ready(function() {
+  console.log("heart")
+  $("#heart").click(function() {
+    console.log("heart")
+    $(this).toggleClass('oldColor', 'newColor');
+    $.ajax({
+      type: "POST",
+      url: '/favourites',
+      // serializ
+      success: function(data) {}
+    })
+  })
+})
+
+
+
+//how should I connect
+// knex('favorite_maps').select().asCallback(function(err, rows) {
+//       .insert({ maps_id: "", user_id: "", hearts: "" }
+//         .returning('*')
+//         .then(rows => console.log(rows))
+//         .catch(err => console.log(err.message))
+//       })

@@ -1,0 +1,18 @@
+body {
+  background-color: #EEE;
+
+  h1 {
+    color: #244751;
+  }
+}
+
+
+/*// heart - original color white, after click red
+*/
+.newColor {
+  color: #FF0000;
+}
+
+.oldColor {
+  color: #FFFFFF;
+}

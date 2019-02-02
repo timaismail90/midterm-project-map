@@ -34,7 +34,8 @@ let mapName = "";
 const usersRoutes = require("./routes/users");
 
 
-const loadMap = require('./public/scripts/app')
+// const loadMap = require('./public/scripts/app')
+
 // import initMap from './public/scripts/app';
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -145,7 +146,35 @@ app.post("/login", (req, res) => {
 //   .whereNot(···)
 
 
+// GET route for favourite maps;
 
+
+
+
+// function formSubmitHandler() {
+//   $("form").submit(function(event) {
+//     event.preventDefault();
+//     $("#heart").click(function() {
+//       $(this).toggleClass('oldColor', 'newColor');
+//     });
+//   })
+// };
+
+// app.get('/mapShow', (req, res) => {
+//   res.render('/')
+// })
+
+
+app.get('/favourites', (req, res) => {
+  res.render('mapShow')
+})
+
+
+app.post('/favourites', (req, res) => {
+  console.log('favourites')
+  res.redirect('mapshow')
+
+})
 
 
 

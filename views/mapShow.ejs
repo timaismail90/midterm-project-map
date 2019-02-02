@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <style>
 
-      #map {
+<head>
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+  <title>Simple Map</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <style>
+    #map {
         height: 100%;
       }
 
@@ -16,16 +20,14 @@
         padding: 0;
       }
     </style>
+</head>
 
-
-
-
-  </head>
-  <body>
-    <header><h1><%=name%></h1></header>
-    <div id="map"></div>
-    <script>
-      function addMarker(data){
+<body>
+  <header><h1><%=name%></h1>
+  </header>
+  <div id="map"></div>
+  <script>
+    function addMarker(data){
         console.log(data)
         var marker = new google.maps.Marker({
           map:map,
@@ -51,12 +53,14 @@
         });
 
 
+
       addMarker(<%-JSON.stringify(pins[0])%>);
-      addMarker(<%-JSON.stringify(pins[1])%>);
-      addMarker(<%-JSON.stringify(pins[2])%>);
-      addMarker(<%-JSON.stringify(pins[3])%>);
-      addMarker(<%-JSON.stringify(pins[4])%>);
-      addMarker(<%-JSON.stringify(pins[5])%>);
+      // addMarker(<%-JSON.stringify(pins[1])%>);
+      // addMarker(<%-JSON.stringify(pins[2])%>);
+      // addMarker(<%-JSON.stringify(pins[3])%>);
+      // addMarker(<%-JSON.stringify(pins[4])%>);
+      // addMarker(<%-JSON.stringify(pins[5])%>);
+
 
 }//init closer
 
@@ -64,15 +68,15 @@
 
 
     </script>
+  <script aync defer src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsAwJU71HsSnjN_EEj1osJHCFyC3kVdFQ&callback=initMap">
+  </script>
+  <<!-- form action='/favourites' method='POST'>
+    <input type='submit' value='Hearts'> -->
+    <!-- </form>
+ -->
+    <i class="far fa-heart oldColor" id="heart"></i>
+</body>
 
-
-    <script aync defer
-      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsAwJU71HsSnjN_EEj1osJHCFyC3kVdFQ&callback=initMap">
-
-    </script>
-
-
-
-
-  </body>
 </html>
+<!-- <i class="far fa-heart"></i>
+ -->
