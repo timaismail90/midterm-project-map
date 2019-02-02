@@ -194,6 +194,10 @@ app.post('/create/', (request, respond) => {
 });
 
 
+app.post('/delete/', (request, respond) => {
+  console.log("alright");
+});
+
 
 
 app.listen(PORT, () => {

@@ -10,6 +10,19 @@
 // });
 
 
+function deletePin(){
+  event.preventDefault();
+  for(let i = 0; i < markers.length; i++){
+      if(lastPin[0] === markers[i].id){
+        markers[i].setMap(null);
+      }
+  }
+  // $.post("/delete", function(data, status) {
+  //   console.log(data);
+  //   console.log(status);
+  // });
+}
+
 
 function savePin() {
   var title = escape(document.getElementById("title").value);
@@ -48,3 +61,5 @@ function downloadUrl(url, callback) {
   request.open('GET', url, true);
   request.send(null);
 }
+
+

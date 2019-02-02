@@ -17,6 +17,9 @@
       }
     </style>
 
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
       <script type="text/javascript" src="/scripts/app.js"></script>
 
@@ -33,7 +36,6 @@
         <tr><td></td><td><input type='button' value='Save' onclick='savePin()'/></td></tr>
       </table>
     </div>
-      <input type='button' value='delete' onclick='deletePin()'/>
 
 
     <div id="message">Location saved</div>
@@ -41,15 +43,10 @@
 
 
     <script>
+
+
       let mapId = <%=mapId%>; //setting the id on the current map we are working on
 
-      function deletePin(){
-        for(let i = 0; i < markers.length; i++){
-            if(lastPin[0] === markers[i].id){
-              markers[i].setMap(null);
-            }
-        }
-      }
 
 
       function setMapOnAll(map) {
@@ -70,8 +67,12 @@
         markers.unshift(marker)
 
         var infoWindow = new google.maps.InfoWindow({
-          content: `<h1>${data.title}</h1><br></br><h3>${data.description}</h3>
-                    <br><img src=${data.imageUrl} style="width:300px;"> <input type='button' value='delete' onclick='deletePin()'/>`
+          content: `<h1>${data.title}</h1><br></br>
+                      <h3>${data.description}</h3>
+                        <br><img src=${data.imageUrl} style="width:300px;">
+                        <form action="/delete/"  method="POST">
+                          <input type='submit' value='delete' onclick='deletePin()'/>
+                        </form>`
         });
 
         marker.addListener('click', function(){
@@ -126,8 +127,12 @@
 
 
         var infoWindow = new google.maps.InfoWindow({
-          content: `<h1>${title}</h1><br></br><h3>${description}</h3>
-                    <br><img src=${imageUrl} style="width:300px;"> <input type='button' value='delete' onclick='deletePin()'/>`
+          content: `<h1>${data.title}</h1><br></br>
+                      <h3>${data.description}</h3>
+                        <br><img src=${data.imageUrl} style="width:300px;">
+                        <form action="/delete/"  method="POST">
+                          <input type='submit' value='delete' onclick='deletePin()'/>
+                        </form>`
         });
 
 
