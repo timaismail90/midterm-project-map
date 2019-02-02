@@ -14,11 +14,8 @@ function deletePin(){
   event.preventDefault();
 
   for(let i = 0; i < markers.length; i++){
-    // console.log("where")
-    // console.log(lastTitle[0], lastDescription[0], lastUrl[0]);
-    // console.log(markers[i].pin.title, markers[i].pin.description, markers[i].pin.imageUrl);
 
-    //uses "last" array, to see last pin clicked, then cycles through all pins aka markers and compares values, if values match delete.
+    //uses "last" arrays, to see last pin clicked, then cycles through all pins aka markers and compares values, if values match delete.
 
       if(lastTitle[0] === markers[i].pin.title && lastDescription[0] === markers[i].pin.description && lastUrl[0] === markers[i].pin.imageUrl){ //set to equal dscrip, title , and url
         console.log("deleted Pin", lastTitle[0], lastDescription[0], lastUrl[0]);
@@ -50,11 +47,44 @@ function savePin() {
   });
 }
 
+function editPinRender(){
+  event.preventDefault();
+
+  //get all information in edit form
+  let title = $('#titleEdit').val();
+  let description = $('#descriptionEdit').val();
+  let imageUrl = $('#imageUrlEdit').val();
+
+
+  console.log('888');
+  console.log(title, description, imageUrl);
+
+
+  //make post request with new information
+  $.post("/delete", {"title": lastTitle[0], "description": lastDescription[0], "imageUrl": lastUrl[0]} , function(data, status) {
+
+  });
+
+
+
+
+  //handle post request in server.js
+  //render the new pin or all pins again.
+
+}
+
+
+
 function editPin(){
-  console.log('909');
-  $('#titleEdit').val("kobe");
-  $('#descriptionEdit').val("kobe");
-  $('#imageUrlEdit').val("kobe");
+  for(let i = 0; i < markers.length; i++){
+
+  //uses "last" array, to see last pin clicked, then cycles through all pins aka markers and compares values, if values match fill in edit form.
+    if(lastTitle[0] === markers[i].pin.title && lastDescription[0] === markers[i].pin.description && lastUrl[0] === markers[i].pin.imageUrl){ //set to equal dscrip, title , and url
+      $('#titleEdit').val(markers[i].pin.title);
+      $('#descriptionEdit').val(markers[i].pin.description);
+      $('#imageUrlEdit').val(markers[i].pin.imageUrl);
+    }
+  }
 }
 
 

@@ -208,6 +208,21 @@ app.post('/delete/', (request, respond) => {
 });
 
 
+app.post('/edit/', (request, respond) => {
+  // knex('pins')
+  //   .where({
+  //   title: request.body.title,
+  //   description: request.body.title,
+  //   imageUrl: request.body.imageUrl
+  //   })
+  //   .del()
+  //   .then(function () {
+  //     respond.json({sucess: true});
+  //   });
+  respond.send("ok!");
+});
+
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

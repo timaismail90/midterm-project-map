@@ -41,7 +41,7 @@
       Name:<input id="titleEdit" type="text" name="title" > <br></br>
       Description:<input id="descriptionEdit" type="text" name="description" > <br></br>
       Image Url:<input id="imageUrlEdit" type="text" name="imageUrl"> <br></br>
-      <input type='submit' value='edit' onclick='deletePin()'/>
+      <input type='submit' value='edit' onclick='editPinRender()'/>
     </form>`
 
 
@@ -171,7 +171,7 @@
           lastDescription.unshift(description);
           lastUrl.unshift(imageUrl);
 
-          // console.log(lastTitle[0], lastDescription[0], lastUrl[0]);
+          console.log(lastTitle[0], lastDescription[0], lastUrl[0]);
 
           infoWindow.open(map, marker);
         });
