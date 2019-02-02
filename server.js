@@ -198,8 +198,6 @@ app.post('/delete/', (request, respond) => {
   knex('pins')
     .where({
     title: request.body.title,
-    description: request.body.title,
-    imageUrl: request.body.imageUrl
     })
     .del()
     .then(function () {
