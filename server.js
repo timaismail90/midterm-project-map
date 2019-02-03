@@ -194,6 +194,16 @@ app.post('/create/', (request, respond) => {
       console.log(maps);
       console.log("tst", mapId)
       respond.redirect(`/map/${mapId}`); //newly created id.
+      knex('users')
+        .where('name', userLogged)
+        .then((user) => {
+        console.log("OOO", user, user[0].id);
+        knex('contributors').insert({'maps_id': mapId, 'users_id': user[0].id})
+        .then(function (result) {
+          respond.redirect(`/map/${mapId}`); //newly created id.
+        })
+      });
+
     });
   })
 });
@@ -207,7 +217,15 @@ app.post('/delete/', (request, respond) => {
     })
     .del()
     .then(function () {
-      respond.json({success: true});
+      knex('users')
+        .where('name', userLogged)
+        .then((user) => {
+        console.log("OOO", user, user[0].id);
+        knex('contributors').insert({'maps_id': mapId, 'users_id': user[0].id})
+        .then(function (result) {
+        respond.json({success: true, message: 'ok'});
+        })
+      });
     });
 });
 
