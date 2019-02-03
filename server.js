@@ -136,17 +136,6 @@ app.get('/map/:id', (request, respond) => {
     });
   });
 
-// //for creating a map
-// app.get('create/', (request, respond) => {
-//   if(request.session.id){ //if user is logged in user can fill out create map information.
-//     let templateVars = {user_id: request.session.id,
-//                         mapId: maps[request.params.id]
-//                         };
-//     respond.render('mapsCreate', templateVars);
-//   } else {
-//     respond.redirect('/') //if user is not log in redirect to homepage
-//   };
-// });
 
 //create map page. user adds a title .
 app.get('/mapCreate', (request, respond) => {
@@ -159,7 +148,20 @@ app.post("/login", (request, respond) => {
   console.log("hey", request.body.username);
   userLogged = request.body.username;
   request.session.id = request.body.username
-  respond.redirect("/");
+  knex('users')
+    .where('name', userLogged)
+  .then(function(user) {
+    if(user.length) {
+        respond.redirect("/");
+    } else{
+      knex('users').insert({name: userLogged})
+        .then((newUser) => {
+          console.log('newUser' , newUser);
+        })
+      respond.redirect("/");
+    }
+  });
+
 });
 
 
