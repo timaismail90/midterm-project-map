@@ -129,17 +129,50 @@ app.get('/login', (req, res) => {
   }
 });
 
-app.post("/login", (req, res) => {
-  let username = req.body.username
-  knex('users').where('name', req.body.username)
-    .then(users => {
-      // user_id = users.id
-      console.log(users)
-      req.session.id = users.id
-      console.log(username)
-      res.redirect("/");
+
+app.get('/explore', (req, res) => {
+  res.render('explore')
+
+})
+
+
+
+
+
+
+
+app.post("/login", (request, respond) => {
+  console.log("hey", request.body.username);
+  userLogged = request.body.username;
+  request.session.id = request.body.username
+  knex('users')
+    .where('name', userLogged)
+    .then(function(user) {
+      if (user.length) {
+        respond.redirect("/explore/");
+      } else {
+        knex('users').insert({ name: userLogged })
+          .then((newUser) => {
+            console.log('newUser', newUser);
+          })
+        respond.redirect("/explore/");
+      }
     });
-}); // knex('users').where('name', req.body.user)
+
+});
+
+
+// app.post("/login", (req, res) => {
+//   let username = req.body.username
+//   knex('users').where('name', req.body.username)
+//     .then(users => {
+//       // user_id = users.id
+//       console.log(users)
+//       req.session.id = users.id
+//       console.log(username)
+//       res.redirect("/");
+//     });
+// }); // knex('users').where('name', req.body.user)
 //   .where('title', 'Hello')
 //   .where({ title: 'Hello' })
 //   .whereIn('id', [1, 2, 3])
@@ -228,7 +261,7 @@ app.post('/favourites', (req, res) => {
 
 
 app.post('/logout', (req, res) => {
-  if (!req.session.id)
+  if (req.session.id)
     res.status(302).redirect('/');
 });
 

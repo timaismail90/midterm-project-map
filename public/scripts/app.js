@@ -61,3 +61,6 @@ $(document).ready(function() {
 //         .then(rows => console.log(rows))
 //         .catch(err => console.log(err.message))
 //       })
+
+
+<%={username:username}%>
