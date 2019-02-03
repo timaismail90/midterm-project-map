@@ -1,0 +1,21 @@
+notesToDo.txt
+
+
+userlogged will track last user logged in. Then the edit button will make a request for post. while the request for editing a pin goes through. You must use the userLogged,( in server.js), w/ the map id you are working on and fill the contributor database.
+
+favorite pin :
+
+fav button will make a post request, using ajax, passing in the mapId of the clicked map. Then use userLogged then fill the fav database.
+
+must check whether true or false. to fav or unfav.
+
+explore page.
+
+if user is logged in =>
+  check favorite database, if user exist print that map id, then render said maps needed..
+
+Profile page :
+
+  if user is logged in =>
+    check fav database and contribute database if user exist there. if they exist print out said map ids.
+

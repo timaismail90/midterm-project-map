@@ -10,6 +10,11 @@
 // });
 
 
+//use above code to maybe load pins better. also use ajax load function to load a specific element in html.
+//see documentation.
+
+
+
 function deletePin(){
   event.preventDefault();
 
