@@ -32,7 +32,7 @@ let templateVars;
 let mapName="";
 
 let pinData = [];
-
+let favMap = false;
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -128,26 +128,54 @@ app.get('/map/:id', (request, respond) => {
 //this will go under map id when cookie is enabled. this is for adding/edit/delete pins
   app.get('/create/:id', (request, respond) => {
     knex('pins')
-    .where('maps_id', request.params.id)
-    .then(pins => {
-    knex('maps')
-    .where('id', request.params.id)
-    .then(maps => {
-    mapName = maps[0].name;
-    mapId = maps[0].id
-    console.log(mapId);
-    templateVars = {
-      pins: pins,
-      length:pins.length,
-      name:mapName,
-      mapId:mapId
-    }
-    respond.render('mapEdit', templateVars);
-    })
+      .where('maps_id', request.params.id)
+      .then(pins => {
+        knex('users')
+        .where('name', userLogged)
+        .then((user) => {
+          knex.raw(`SELECT * FROM "favoriteMaps" WHERE users_id = ${user[0].id} AND maps_id = ${request.params.id}`)
+            .then(function(results){
+              console.log("hello!", results);
+              if(results.rowCount){
+                favMap = true;
+                knex('maps')
+                  .where('id', request.params.id)
+                  .then(maps => {
+                    mapName = maps[0].name;
+                    mapId = maps[0].id
+                    console.log(mapId);
+                    templateVars = {
+                      pins: pins,
+                      length:pins.length,
+                      name:mapName,
+                      mapId:mapId,
+                      favMap:favMap
+                    }
+                    respond.render('mapEdit', templateVars);
+                  })
+    } else {
+      knex('maps')
+        .where('id', request.params.id)
+        .then(maps => {
+          mapName = maps[0].name;
+          mapId = maps[0].id
+          console.log(mapId);
+          templateVars = {
+            pins: pins,
+            length:pins.length,
+            name:mapName,
+            mapId:mapId,
+            favMap:favMap
+          }
+          respond.render('mapEdit', templateVars);
+        })
+      }
+
 
     });
+    });
   });
-
+});
 
 //create map page. user adds a title .
 app.get('/mapCreate', (request, respond) => {
