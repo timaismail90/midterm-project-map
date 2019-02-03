@@ -77,7 +77,8 @@ app.get('/explore', (req, res) => {
 });
 
 app.get('/profile', (req, res) => {
-  res.render('profile')
+  let templateVars = {userLogged: userLogged}; 
+  res.render('profile', templateVars)
 });
 
 app.get('/build', (req, res) => {

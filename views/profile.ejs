@@ -27,13 +27,13 @@
             <div class="row">
               <div class="left col-lg-4">
                 <div class="photo-left">
-                  <img class="photo" src="https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg"/>
+                  <img class="photo" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"/>
                   <div class="active"></div>
                 </div>
-                <h4 class="name">@Alice</h4>
-                <p class="info">Alice.meg@gmail.com</p>
+                <h4 class="name">@<%= userLogged%></h4>
+                <p class="info"><%= userLogged%>@gmail.com</p>
                
-                <p class="desc">Hi ! My name is Jane Doe. I'm a UI/UX Designer from Paris, in France. I really enjoy photography and mountains.</p>
+                <p class="desc">Hi ! My name is <strong><%= userLogged%></strong>. I'm a UI/UX Designer from Paris, in France. I really enjoy photography and mountains.</p>
                 <form>
                     <button formaction="/explore/" class="button button1">Explore 🔎</button>
                   </form>
