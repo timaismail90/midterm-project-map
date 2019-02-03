@@ -231,6 +231,7 @@ app.post('/delete/', (request, respond) => {
 
 app.post('/favorite/', (request, respond) => {
   console.log("hello");
+  console.log(request.body);
   respond.send('888');
 
 });

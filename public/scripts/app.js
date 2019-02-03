@@ -118,16 +118,17 @@ function favorite(){
   if(color === 'white'){
     document.getElementById("heart").style.color = 'red'
     let fav = true;
+    console.log(mapId);
 
-
-    $.post("/favorite/",  function(data, status) {
+    $.post("/favorite/", {'maps_id':mapId, 'favorite': fav}, function(data, status) {
       console.log(status);
     });
   } else {
     document.getElementById("heart").style.color = 'white'
     let fav = false;
+    console.log(mapId);
 
-    $.post("/favorite/", function(data, status) {
+    $.post("/favorite/",  {'maps_id':mapId, 'favorite': fav}, function(data, status) {
       console.log(status);
     });
   }
