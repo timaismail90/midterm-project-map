@@ -4,6 +4,10 @@
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <style>
 
       #map {
@@ -25,6 +29,7 @@
     <header><h1><%=name%></h1></header>
     <div id="map"></div>
     <script>
+      var MapID= <%=MapID%>
       function addMarker(data){
         console.log(data)
         var marker = new google.maps.Marker({
@@ -75,7 +80,6 @@
     </script>
 
 
-
-
+  <i class="far fa-heart oldColor" id="heart" value='MapID'></i>  
   </body>
 </html>

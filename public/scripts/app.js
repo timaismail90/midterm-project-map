@@ -104,3 +104,24 @@ function downloadUrl(url, callback) {
 }
 
 
+// $(document).ready(function() {
+//   console.log("heart")
+//   $("#heart").click(function() {
+//     event.preventDefault(event);
+//     console.log("heart")
+//     $(this).toggleClass('oldColor', 'newColor');
+//     $.ajax({
+//       type: "POST",
+//       url: '/favourites',
+//       data: {
+//         user_id: 1,
+//         map_id: MapID
+//         // $('#heart').val()
+//       },
+//       success: function(data) {}
+//     })
+//   })
+// })
+
+
+

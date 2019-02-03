@@ -10,6 +10,7 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
@@ -42,11 +43,11 @@
         
           <div class="cover">
             <h1>Discover what's out there.</h1>
-            <form  class="flex-form" action="/explore/" method="POST">
+            <form  class="flex-form" method="POST" action="/login">
               <label for="from">
                 <i class="ion-location"></i>
               </label>
-              <input type="search" placeholder="Welcome back. Enter username here.">
+              <input type="text" placeholder="Welcome back. Enter username here.">
               <input type="submit" value="Login">
             </form>
             <div id="madeby">

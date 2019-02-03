@@ -22,6 +22,7 @@ app.use(cookieSession({
 
 let mapId = "";
 
+let userLogged = ""; 
 
 let templateVars;
 
@@ -172,7 +173,7 @@ app.get('/map/:id', (request, respond) => {
 //create map page. user adds a title .
 app.get('/testCreate', (request, respond) => {
   respond.render('mapBuild', templateVars);
-})
+});
 
 
 //post after user enters title. adds map to maps database, then loads the map.
@@ -244,7 +245,46 @@ app.post('/edit/', (request, respond) => {
 
 });
 
+app.get('/favourites', (req, res) => {
+  res.render('mapShow')
+});
 
+app.get('/explore', (req, res) => {
+  res.render('explore')
+});
+
+app.get('/profile', (req, res) => {
+  res.render('profile')
+});
+
+app.get('/build', (req, res) => {
+  res.render('buildMapForm')
+});
+
+
+app.post('/logout', (req, res) => {
+  if (req.session.id)
+    res.status(302).redirect('/');
+});
+
+app.post('/favourites', (req, res) => {
+  const favorite_maps = req.body;
+  console.log(req.body)
+  knex('favorite_maps').insert({
+      users_id: req.body.user_id,
+      maps_id: req.body.map_id
+
+    })
+    .then(favorite_maps => {
+      res.status(201).json({ status: "ok" })
+
+      //   console.log('favourites')
+      //   res.redirect('mapshow')
+
+    }).catch(error => {
+      res.status(500).json({ error });
+    });
+});
 
 
 
