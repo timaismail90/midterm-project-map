@@ -36,6 +36,7 @@ function initMap(latitudes, longtitudes) {
 $(document).ready(function() {
   console.log("heart")
   $("#heart").click(function() {
+    event.preventDefault(event);
     console.log("heart")
     $(this).toggleClass('oldColor', 'newColor');
     $.ajax({
@@ -44,6 +45,7 @@ $(document).ready(function() {
       data: {
         user_id: 1,
         map_id: 1
+        // $('#heart').val()
       },
       success: function(data) {}
     })

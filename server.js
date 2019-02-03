@@ -109,7 +109,8 @@ app.get('/map/:id', (request, respond) => {
         templateVars = {
           pins: pins,
           length: pins.length,
-          name: mapName
+          name: mapName,
+          MapID: request.params.id
         }
 
         respond.render('mapShow', templateVars);
@@ -129,17 +130,16 @@ app.get('/login', (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  let username = req.body.name
+  let username = req.body.username
   knex('users').where('name', req.body.username)
     .then(users => {
       // user_id = users.id
-
+      console.log(users)
       req.session.id = users.id
-
+      console.log(username)
       res.redirect("/");
-    })
-});
-// knex('users').where('name', req.body.user)
+    });
+}); // knex('users').where('name', req.body.user)
 //   .where('title', 'Hello')
 //   .where({ title: 'Hello' })
 //   .whereIn('id', [1, 2, 3])
@@ -176,11 +176,10 @@ app.post('/favourites', (req, res) => {
   knex('favorite_maps').insert({
       users_id: req.body.user_id,
       maps_id: req.body.map_id
+
     })
     .then(favorite_maps => {
       res.status(201).json({ status: "ok" })
-
-
 
       //   console.log('favourites')
       //   res.redirect('mapshow')
