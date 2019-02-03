@@ -71,7 +71,8 @@ function editPinRender(){
       "imageUrl": lastUrl[0],
       "titleNew": title,
       "descriptionNew": description,
-      "imageUrlNew": imageUrl
+      "imageUrlNew": imageUrl,
+      "maps_id": mapId
   }
 
   $.post("/edit", editData, function(data, status) {

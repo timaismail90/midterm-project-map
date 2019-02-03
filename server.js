@@ -22,6 +22,7 @@ app.use(cookieSession({
 }))
 
 let mapId = "";
+let userId = "";
 
 //what user is logged in last. User must exist in database for knex to work .
 let userLogged = "";
@@ -99,13 +100,24 @@ app.get('/map/:id', (request, respond) => {
 
 //recieves add pin information
   app.get('/create/createPin', (request, respond) => {
-
+    mapId = request.query.maps_id;
     knex('pins').insert(request.query)
     .then( function (result) {
-          respond.json({ success: true, message: 'ok' });     // respond back to request
-       });
+      knex('users')
+        .where('name', userLogged)
+        .then((user) => {
+        console.log("OOO", user, user[0].id);
+        knex('contributors').insert({'maps_id': mapId, 'users_id': user[0].id})
+        .then(function (result) {
+        respond.json({success: true, message: 'ok'});
+        })
+      });
+    });
     console.log(request.query);
     // pinData = request.
+
+
+
 
   });
 
@@ -168,14 +180,6 @@ app.post("/login", (request, respond) => {
 
 
 
-// app.get('/login/:id', (request, respond) => {
-//   request.session.id = request.params.id;
-//   respond.redirect('/');
-// });
-
-
-
-
 
 //post after user enters title. adds map to maps database, then loads the map.
 app.post('/create/', (request, respond) => {
@@ -207,19 +211,17 @@ app.post('/delete/', (request, respond) => {
     });
 });
 
+
+
+
+
 app.post('/edit/', (request, respond) => {
   console.log("HEYHEYHEY");
-  // console.log(request);
-  // knex('pins')
-  //   .where(
-  //   'title', request.body.title
-  //   )
-  //   .update({
-  //     title: request.body.New
-  //   })
-  //   .then(function () {
-  //     respond.json({success:true});
-  //   });
+  console.log(request.body.maps_id);
+  console.log(userLogged);
+
+
+//adding new edited pin to database. checks  old pin then updates info w/ new.
   knex('pins')
     .where('title', request.body.title)
     .then((pin) => {
@@ -237,9 +239,20 @@ app.post('/edit/', (request, respond) => {
           console.log('newPin:', newPin);
         })
       }
-
-
     })
+
+  //giving user a contribution
+  knex('users')
+    .where('name', userLogged)
+  .then((user) => {
+    console.log("OOO", user, user[0].id);
+    knex('contributors').insert({'maps_id': request.body.maps_id, 'users_id': user[0].id})
+    .then(function (result) {
+      respond.json({success: true, message: 'ok'});
+    })
+  });
+
+
 
 
 
