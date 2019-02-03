@@ -109,4 +109,28 @@ function downloadUrl(url, callback) {
   request.send(null);
 }
 
+// document.getElementById("myBtn").addEventListener("click", changeColor);
+
+function favorite(){
+  //checking the color
+  let color = document.getElementById("heart").style.color
+
+  if(color === 'white'){
+    document.getElementById("heart").style.color = 'red'
+    let fav = true;
+
+
+    $.post("/favorite/",  function(data, status) {
+      console.log(status);
+    });
+  } else {
+    document.getElementById("heart").style.color = 'white'
+    let fav = false;
+
+    $.post("/favorite/", function(data, status) {
+      console.log(status);
+    });
+  }
+}
+
 

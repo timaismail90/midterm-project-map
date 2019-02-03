@@ -15,6 +15,33 @@
         margin: 0;
         padding: 0;
       }
+
+      .heart {
+        background-color: red;
+        height: 30px;
+        transform: rotate(-45deg);
+        width: 30px;
+      }
+
+
+      .heart:before {
+        top: -15px;
+        left: 0;
+      }
+
+/*
+      .heart:after {
+        content: "";
+        background-color: red;
+        border-radius: 50%;
+        height: 30px;
+        position: absolute;
+        width: 30px;
+      }
+*/
+
+
+
     </style>
 
 
@@ -42,11 +69,12 @@
       Description:<input id="descriptionEdit" type="text" name="description" > <br></br>
       Image Url:<input id="imageUrlEdit" type="text" name="imageUrl"> <br></br>
       <input type='submit' value='edit' onclick='editPinRender()'/>
-    </form>`
+    </form>
 
 
     <div id="message">Location saved</div>
 
+    <span id='heart' style="font-size:500%;color:white;" onclick='favorite()'>&hearts;</span>
 
 
     <script>

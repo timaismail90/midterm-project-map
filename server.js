@@ -229,7 +229,11 @@ app.post('/delete/', (request, respond) => {
     });
 });
 
+app.post('/favorite/', (request, respond) => {
+  console.log("hello");
+  respond.send('888');
 
+});
 
 
 
@@ -269,11 +273,6 @@ app.post('/edit/', (request, respond) => {
       respond.json({success: true, message: 'ok'});
     })
   });
-
-
-
-
-
 
 });
 
