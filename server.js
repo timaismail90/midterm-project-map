@@ -154,6 +154,7 @@ app.get('/map/:id', (request, respond) => {
                     respond.render('mapEdit', templateVars);
                   })
     } else {
+      favMap = false;
       knex('maps')
         .where('id', request.params.id)
         .then(maps => {
@@ -278,6 +279,7 @@ app.post('/favorite/', (request, respond) => {
         knex.raw(`DELETE FROM "favoriteMaps" WHERE users_id = ${user[0].id} AND maps_id = ${request.body.maps_id}`)
         .then(function(results){
           console.log(results);
+          favMap = false;
           respond.send('okay!!!');
         })
       })

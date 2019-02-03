@@ -87,8 +87,13 @@
       console.log("yea", favMap);
 
       function checkFavorite(){
-
+        if(favMap){
+          document.getElementById("heart").style.color = 'red'
+        } else{
+          document.getElementById("heart").style.color = 'white'
+        }
       }
+      checkFavorite();
 
       function setMapOnAll(map) {
         for (var i = 0; i < markers.length; i++) {
