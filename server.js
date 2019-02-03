@@ -70,9 +70,7 @@ app.get("/", (request, respond) => {
   };
 });
 
-app.get('/profile', (req, res) => {
-  res.render('profile')
-});
+
 
 app.get('/explore', (req, res) => {
   res.render('explore')
@@ -166,6 +164,7 @@ app.get('/mapCreate', (request, respond) => {
 
 
 app.post("/login", (request, respond) => {
+  console.log(request); 
   console.log("hey", request.body.username);
   userLogged = request.body.username;
   request.session.id = request.body.username
