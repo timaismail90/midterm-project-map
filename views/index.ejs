@@ -5,7 +5,7 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/cards.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/main.css" type="text/css" />
     
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -18,79 +18,53 @@
   </head>
   <body>
      
-      <header class="masthead clear">
-          <div class="centered">
+      <div class="container">
+
+          <header>
+            <h2><a href="index.ejs"><i class="ion-plane"></i>LUNO</a></h2>
+            <nav>
+              <ul>
+                <li>
+                  <a href="explore.ejs" title="Explore">EXPLORE MAPS</a>
+                </li>
+                <li>
+                  <a href="explore.ejs" title="Trending">TRENDING</a>
+                </li>
+                <li>
+                  <a href="#" title="Login">LOGIN</a>
+                </li>
+                <li>
+                  <a class="btn" href="buildMapForm.ejs" title="Register / Log In">BUILD YOUR MAP🗺</a>
+                </li>
+              </ul>
+            </nav>
+          </header>
         
-            <div class="site-branding">
-              <h1 class="site-title">Explore Trending Maps 👇</h1>
+          <div class="cover">
+            <h1>Discover what's out there.</h1>
+            <form  class="flex-form" action="/explore/" method="POST">
+              <label for="from">
+                <i class="ion-location"></i>
+              </label>
+              <input type="search" placeholder="Welcome back. Enter username here.">
+              <input type="submit" value="Login">
+            </form>
+            <div id="madeby">
             </div>
-            <!-- .site-title -->
           </div>
-          <!-- .centered -->
-        </header>
-        <!-- .masthead -->
-        
-        <main class="main-area">
-        
-          <div class="centered">
-        
-            <section class="cards">
-        
-              <article class="card">
-                <a href="#">
-                  <figure class="thumbnail">
-                  <img src="http://dontai.com/wp/wp-content/uploads/2018/04/google-maps-stc-2018-4-4.png" alt="meow">
-                  </figure>
-                  <div class="card-content">
-                    <h2>Alice Best Bars</h2>
-                    <p>Explore trending local spots 🍕.</p>
-                  </div>
-                  <!-- .card-content -->
-                </a>
-              </article>
-              <!-- .card -->
-        
-              <article class="card">
-                <a href="#">
-                  <figure class="thumbnail">
-                    <img src="http://dontai.com/wp/wp-content/uploads/2018/04/google-maps-stc-2018-4-4.png" alt="meow">
-                  </figure>
-                  <div class="card-content">
-                    <h2>Coffee Spots</h2>
-                    <p>Go on, indulge yourself in local hangouts ☝️.</p>
-                  </div>
-                  <!-- .card-content -->
-                </a>
-              </article>
-              <!-- .card -->
-        
-              <article class="card">
-                <a href="#">
-                  <figure class="thumbnail">
-                    <img src="http://dontai.com/wp/wp-content/uploads/2018/04/google-maps-stc-2018-4-4.png" alt="meow">
-                  </figure>
-                  <div class="card-content">
-                    <h2>Map Name 3</h2>
-                    <p>Find new places to explore, everyday 🙌.</p>
-                  </div>
-                  <!-- .card-content -->
-                </a>
-               
-              </article>
-              <!-- .card -->
-        
-              <!-- .card -->
-              <button class="button button1">View Feavourites ❤️</button>
+        </div>
 
-            </section>
-            <!-- .cards -->
-            
+        <div class="container">
+            <div class="item item1"></div>
+            <div class="item item2"></div>
+            <div class="item item3"></div>
+            <div class="item item4"></div>
+            <div class="item item5"></div>
+            <div class="item item5"></div>
           </div>
-          <!-- .centered -->
-
     
-          
-        </main>
+    
+    
     
     
       </body>
