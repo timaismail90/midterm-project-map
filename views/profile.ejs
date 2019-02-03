@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home - Luno</title>
+    <title>Profile - Luno</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -19,38 +19,55 @@
   </head>
   <body>
      
-      <header class="masthead clear">
-          <div class="centered">
-        
-            <div class="site-branding">
-              <h1 class="site-title">Your Profile</h1>
-            </div>
-            <!-- .site-title -->
-          </div>
-          <!-- .centered -->
-        </header>
-        <!-- .masthead -->
-            
-            <div class="sidenav">
-              <a href="/profile">Username: <strong>@Alice</strong></a>
-              <a href="/explore">Explore</a>
-              <a href="/logout">Logout</a>
-              <a href="/">Home</a>
-            </div>
-            
-            <div class="content">
-              <h2>My Maps 🗺</h2>
-              <p>Display maps here.</p>
-            </div>
-
-            
-            
-            <div class="content">
-                <h2>My Favourite Maps 👇</h2>
-                <p>Display maps here.</p>
+      <div class="container">
+          <header>
+            <i class="fa fa-bars" aria-hidden="true"></i>
+          </header>
+          <main>
+            <div class="row">
+              <div class="left col-lg-4">
+                <div class="photo-left">
+                  <img class="photo" src="https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg"/>
+                  <div class="active"></div>
+                </div>
+                <h4 class="name">@Alice</h4>
+                <p class="info">Alice.meg@gmail.com</p>
+               
+                <p class="desc">Hi ! My name is Jane Doe. I'm a UI/UX Designer from Paris, in France. I really enjoy photography and mountains.</p>
+                <form>
+                    <button formaction="/explore/" class="button button1">Explore 🔎</button>
+                  </form>
+                <div class="social">
+                  <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                  <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                  <i class="fa fa-pinterest-square" aria-hidden="true"></i>
+                  <i class="fa fa-tumblr-square" aria-hidden="true"></i>
+                </div>
               </div>
+              <div class="right col-lg-8">
+                <ul class="nav">
+                  <li>My Edited Maps 🗺</li>
+                </ul>
+                <span class="follow">Follow</span>
+                <div class="row gallery">
+                  <div class="col-md-4">
+                     <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774813-photo4.jpg"/>
+                  </div>
+                  <div class="col-md-4">
+                     <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo6.jpg"/>
+                  </div>
+                  <ul class="nav">
+                      <li>My Favourites ❤️</li>
+                    </ul>
+                    <div class="col-md-4">
+                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo5.jpg"/>
+                      </div>
+                </div>
+              </div>
+          </main>
+        </div>
               
-            
+      
     
     
       </body>
