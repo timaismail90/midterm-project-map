@@ -44,7 +44,7 @@ $(document).ready(function() {
       url: '/favourites',
       data: {
         user_id: 1,
-        map_id: 1
+        map_id: MapID
         // $('#heart').val()
       },
       success: function(data) {}
