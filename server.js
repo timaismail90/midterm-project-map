@@ -33,8 +33,6 @@ let mapName="";
 let pinData = [];
 
 
-// import * as L from 'leaflet';
-
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
@@ -85,9 +83,7 @@ app.get('/map/:id', (request, respond) => {
     knex('maps')
     .where('id', request.params.id)
     .then(maps => {
-      mapName = maps[0].name;
-    })
-
+    mapName = maps[0].name;
     templateVars = {
       pins: pins,
       length:pins.length,
@@ -96,7 +92,7 @@ app.get('/map/:id', (request, respond) => {
     console.log(userLogged);
     respond.render('mapShow', templateVars);
     });
-
+    })
   };
 });
 
@@ -125,9 +121,8 @@ app.get('/map/:id', (request, respond) => {
     knex('maps')
     .where('id', request.params.id)
     .then(maps => {
-      mapName = maps[0].name;
-      mapId = maps[0].id
-    })
+    mapName = maps[0].name;
+    mapId = maps[0].id
     console.log(mapId);
     templateVars = {
       pins: pins,
@@ -136,6 +131,8 @@ app.get('/map/:id', (request, respond) => {
       mapId:mapId
     }
     respond.render('mapEdit', templateVars);
+    })
+
     });
   });
 
@@ -152,7 +149,7 @@ app.get('/map/:id', (request, respond) => {
 // });
 
 //create map page. user adds a title .
-app.get('/testCreate', (request, respond) => {
+app.get('/mapCreate', (request, respond) => {
   respond.render('mapBuild', templateVars);
 })
 
@@ -190,7 +187,7 @@ app.post('/create/', (request, respond) => {
       mapId = maps[0].id;
       console.log(maps);
       console.log("tst", mapId)
-      respond.redirect(`/test/${mapId}`); //newly created id.
+      respond.redirect(`/map/${mapId}`); //newly created id.
     });
   })
 });
