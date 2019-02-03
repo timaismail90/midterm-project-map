@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home - Listty</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/form.css" type="text/css" />
+    
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+
+
+  </head>
+  <body>
+     
+      <div class="container">
+
+          <header>
+            <h2><a href="index.ejs"><i class="ion-plane"></i>LUNO</a></h2>
+            <nav>
+              <ul>
+                <li>
+                  <a href="#" title="Explore">EXPLORE MAPS</a>
+                </li>
+                <li>
+                  <a href="#" title="Trending">TRENDING</a>
+                </li>
+                <li>
+                  <a href="#" title="Login">LOGIN</a>
+                </li>
+                <li>
+                  <a class="btn" href="#" title="Register / Log In">BUILD YOUR MAP🗺</a>
+                </li>
+              </ul>
+            </nav>
+          </header>
+        
+          <div class="cover">
+            <h1>Build Your Unique Map.</h1>
+            <form  class="flex-form" action="POST">
+              <label for="from">
+                <i class="ion-location"></i>
+              </label>
+              <input type="search" placeholder="Your New Map Title?">
+              <input type="submit" value="Build Map">
+            </form>
+            <div id="madeby">
+              <span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        
+    
+        
+    
+    
+    
+      </body>
+    </html>
