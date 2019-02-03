@@ -60,6 +60,10 @@ app.use(express.static("public"));
 app.use("/api/users", usersRoutes(knex));
 
 // Explor page, is user is logged in redirect to new page. else render guest explore page.
+
+let userLogged = "";
+
+
 app.get("/", (request, respond) => {
   if (request.session.user_id) {
     respond.redirect('/:id');
@@ -86,6 +90,7 @@ app.get("/", (request, respond) => {
 //     respond.redirect('/');
 //   };
 // });
+
 
 
 //view specic map page
@@ -149,13 +154,13 @@ app.post("/login", (request, respond) => {
     .where('name', userLogged)
     .then(function(user) {
       if (user.length) {
-        respond.redirect("/explore/");
+        respond.redirect("/");
       } else {
         knex('users').insert({ name: userLogged })
           .then((newUser) => {
             console.log('newUser', newUser);
           })
-        respond.redirect("/explore/");
+        respond.redirect("/");
       }
     });
 
