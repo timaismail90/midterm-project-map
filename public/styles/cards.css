@@ -3,7 +3,7 @@ p {color: #666;}
 
 h2 {
   font-size: 2em;
-  color: #ef3f5a;  
+  color: #d73851;  
 }
 .centered {
     margin: 0 auto;
@@ -21,7 +21,7 @@ Header styles minus menu
 --------------------------------------------------------------*/
 
 .masthead {
-    background: #e74c3c;
+    background: #d73851;
   	box-shadow: 3px 3px 8px hsl(0, 0%, 70%);
 }
 
@@ -130,7 +130,7 @@ img {
 
 
 .button {
-  background-color: #e74c3c; 
+  background-color: #d73851; 
   border: none;
   color: white;
   padding: 15px 32px;

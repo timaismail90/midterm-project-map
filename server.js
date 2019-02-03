@@ -70,8 +70,8 @@ app.get("/", (request, respond) => {
   };
 });
 
-app.get('/favourites', (req, res) => {
-  res.render('mapShow')
+app.get('/profile', (req, res) => {
+  res.render('profile')
 });
 
 app.get('/explore', (req, res) => {
