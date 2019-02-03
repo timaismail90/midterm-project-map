@@ -230,8 +230,38 @@ app.post('/delete/', (request, respond) => {
 });
 
 app.post('/favorite/', (request, respond) => {
-  console.log("hello");
-  console.log(request.body);
+  if(request.body.favorite === 'true'){
+    console.log("time to add");
+    knex('users')
+      .where('name', userLogged)
+    .then((user) => {
+      console.log("OOO", user, user[0].id);
+      knex("favoriteMaps").insert({'maps_id': request.body.maps_id, 'users_id': user[0].id})
+      .then(function (result) {
+        console.log(result);
+        respond.json({success: true, message: 'ok'});
+      })
+    });
+  } else{
+    console.log("time to delete");
+    knex('users')
+      .where('name', userLogged)
+      .then((user) => {
+        knex.raw(`DELETE FROM "favoriteMaps" WHERE users_id = ${user[0].id} AND maps_id = ${request.body.maps_id}`)
+        .then(function(results){
+          console.log(results);
+          respond.send('okay!!!');
+        })
+      })
+
+
+    // knex.raw('DELETE FROM favoriteMaps WHERE id = '
+    // console.log("time to delete");
+    //have to check how to delete w/ multiple arguments.
+  }
+
+
+
   respond.send('888');
 
 });
