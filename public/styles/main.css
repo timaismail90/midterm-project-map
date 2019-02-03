@@ -160,7 +160,7 @@ a.btn:hover {
   -webkit-appearance: none;
 }
 
-input[type="search"] {
+input[type="text"] {
   flex-basis: 500px;
 }
 
@@ -181,7 +181,7 @@ input[type="search"] {
     width: 100%;
   }
 
-  input[type="search"] {
+  input[type="text"] {
     flex-basis: 100%;
   }
 

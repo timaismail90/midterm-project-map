@@ -14,6 +14,7 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+//importing cookie session
 const cookieSession = require('cookie-session');
 app.use(cookieSession({
   name: 'session',
@@ -22,7 +23,8 @@ app.use(cookieSession({
 
 let mapId = "";
 
-let userLogged = ""; 
+//what user is logged in last. User must exist in database for knex to work .
+let userLogged = "";
 
 let templateVars;
 
@@ -30,8 +32,6 @@ let mapName="";
 
 let pinData = [];
 
-
-// import * as L from 'leaflet';
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -61,43 +61,42 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
-// Explor page, is user is logged in redirect to new page. else render guest explore page.
+// Explore page, is user is logged in redirect to new page. else render guest explore page.
 app.get("/", (request, respond) => {
-  if(request.session.user_id){
-    respond.redirect('/:id');
+  if(request.session.id){
+    respond.send('hey'); //render homepage w/ explore maps and favorite maps.
   } else {
-    knex('maps').then(maps => {
-    console.log(maps[0]);
-    });
-    knex('pins').then(pins => {
-    console.log(pins);
-    });
-    respond.render('index')
+    respond.render('index') //render homepage w/ explore maps but no favorites.
   };
 });
 
+app.get('/favourites', (req, res) => {
+  res.render('mapShow')
+});
 
-// //user explore page. If not logged in redirect to guest explore page .
-// app.get('/:id', (request, respond) => {
-//   if(request.session.user_id){
-//     //load maps in database.
-//     //also load favorite maps
-//     let templateVars = {user_id: userDatabase[request.session.user_id]};
-//     respond.render('explore', templateVars);
-//   } else {
-//     respond.redirect('/');
-//   };
-// });
+app.get('/explore', (req, res) => {
+  res.render('explore')
+});
 
+app.get('/profile', (req, res) => {
+  res.render('profile')
+});
+
+app.get('/build', (req, res) => {
+  res.render('buildMapForm')
+});
+
+
+app.post('/logout', (req, res) => {
+  if (req.session.id)
+    res.status(302).redirect('/');
+});
 
 //view specic map page
+
 app.get('/map/:id', (request, respond) => {
-  if(request.session.user_id){
-    //load specific map from database
-    // let templateVars = {user_id: request.session.user_id,
-    //                     mapId: maps[request.params.id]
-    //                     };
-    respond.render('mapEdit', templateVars); //on new create map, if null show "enter info etc."
+  if(request.session.id){ //this is the test page "test/:id"
+    respond.redirect(`/create/${request.params.id}`);
   } else {
     knex('pins')
     .where('maps_id', request.params.id)
@@ -105,24 +104,23 @@ app.get('/map/:id', (request, respond) => {
     knex('maps')
     .where('id', request.params.id)
     .then(maps => {
-      mapName = maps[0].name;
-    })
-
+    mapName = maps[0].name;
     templateVars = {
       pins: pins,
       length:pins.length,
       name:mapName
     }
-
+    console.log(userLogged);
     respond.render('mapShow', templateVars);
     });
-
+    })
   };
 });
 
 
 //recieves add pin information
-  app.get('/test/createPin', (request, respond) => {
+  app.get('/create/createPin', (request, respond) => {
+
     knex('pins').insert(request.query)
     .then( function (result) {
           respond.json({ success: true, message: 'ok' });     // respond back to request
@@ -137,16 +135,15 @@ app.get('/map/:id', (request, respond) => {
 
 
 //this will go under map id when cookie is enabled. this is for adding/edit/delete pins
-  app.get('/test/:id', (request, respond) => {
+  app.get('/create/:id', (request, respond) => {
     knex('pins')
     .where('maps_id', request.params.id)
     .then(pins => {
     knex('maps')
     .where('id', request.params.id)
     .then(maps => {
-      mapName = maps[0].name;
-      mapId = maps[0].id
-    })
+    mapName = maps[0].name;
+    mapId = maps[0].id
     console.log(mapId);
     templateVars = {
       pins: pins,
@@ -155,25 +152,50 @@ app.get('/map/:id', (request, respond) => {
       mapId:mapId
     }
     respond.render('mapEdit', templateVars);
+    })
+
     });
   });
 
-// //for creating a map
-// app.get('create/', (request, respond) => {
-//   if(request.session.user_id){ //if user is logged in user can fill out create map information.
-//     let templateVars = {user_id: request.session.user_id,
-//                         mapId: maps[request.params.id]
-//                         };
-//     respond.render('mapsCreate', templateVars);
-//   } else {
-//     respond.redirect('/') //if user is not log in redirect to homepage
-//   };
-// });
 
 //create map page. user adds a title .
-app.get('/testCreate', (request, respond) => {
+app.get('/mapCreate', (request, respond) => {
   respond.render('mapBuild', templateVars);
+})
+
+
+
+app.post("/login", (request, respond) => {
+  console.log("hey", request.body.username);
+  userLogged = request.body.username;
+  request.session.id = request.body.username
+  knex('users')
+    .where('name', userLogged)
+  .then(function(user) {
+    if(user.length) {
+        respond.redirect("/explore");
+    } else{
+      knex('users').insert({name: userLogged})
+        .then((newUser) => {
+          console.log('newUser' , newUser);
+        })
+      respond.redirect("/explore");
+    }
+  });
+
 });
+
+
+
+
+
+// app.get('/login/:id', (request, respond) => {
+//   request.session.id = request.params.id;
+//   respond.redirect('/');
+// });
+
+
+
 
 
 //post after user enters title. adds map to maps database, then loads the map.
@@ -188,7 +210,7 @@ app.post('/create/', (request, respond) => {
       mapId = maps[0].id;
       console.log(maps);
       console.log("tst", mapId)
-      respond.redirect(`/test/${mapId}`); //newly created id.
+      respond.redirect(`/map/${mapId}`); //newly created id.
     });
   })
 });
@@ -245,50 +267,10 @@ app.post('/edit/', (request, respond) => {
 
 });
 
-app.get('/favourites', (req, res) => {
-  res.render('mapShow')
-});
 
-app.get('/explore', (req, res) => {
-  res.render('explore')
-});
-
-app.get('/profile', (req, res) => {
-  res.render('profile')
-});
-
-app.get('/build', (req, res) => {
-  res.render('buildMapForm')
-});
-
-
-app.post('/logout', (req, res) => {
-  if (req.session.id)
-    res.status(302).redirect('/');
-});
-
-app.post('/favourites', (req, res) => {
-  const favorite_maps = req.body;
-  console.log(req.body)
-  knex('favorite_maps').insert({
-      users_id: req.body.user_id,
-      maps_id: req.body.map_id
-
-    })
-    .then(favorite_maps => {
-      res.status(201).json({ status: "ok" })
-
-      //   console.log('favourites')
-      //   res.redirect('mapshow')
-
-    }).catch(error => {
-      res.status(500).json({ error });
-    });
-});
 
 
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
-
