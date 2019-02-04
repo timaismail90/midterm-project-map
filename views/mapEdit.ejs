@@ -12,6 +12,7 @@
         height: 80%;
         margin: 0;
         padding: 0;
+        
       }
       .heart {
         background-color: red;
@@ -23,6 +24,25 @@
         top: -15px;
         left: 0;
       }
+
+      .button {
+  background-color: #d73851; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: center;
+  font-size: 16px;
+  margin: 0 auto;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; 
+  transition-duration: 0.4s;
+}
+
+.button1 {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
 /*
       .heart:after {
         content: "";
@@ -45,6 +65,7 @@
   <body>
     <header><h1><%=name%></h1></header>
     <div id="map"></div>
+    
 
     <div id="table">
       <table>
@@ -66,6 +87,10 @@
     <div id="message">Location saved</div>
 
     <span id='heart' style="font-size:500%;color:white;" onclick='favorite()'>&hearts;</span>
+
+    <form>
+        <button formaction="/profile/" class="button button1">View Favourites ❤️</button>
+      </form>
 
 
     <script>

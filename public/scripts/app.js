@@ -75,11 +75,20 @@ function editPinRender(){
       "maps_id": mapId
   }
 
-  $.post("/edit", editData, function(data, status) {
-    console.log(status);
+  $(() => {
+    $.ajax({
+      method: "POST",
+      url: "/edit",
+      data: editData
+    }).done((map) => { //reloading page, to see new edits.
+      console.log("Checking Ajax")
+      location.reload();
+    });;
   });
-
-}
+  
+  
+  }
+  
 
 
 
