@@ -4,16 +4,10 @@
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-   
     <style>
-
       #map {
         height: 100%;
       }
-
       html, body {
         height: 80%;
         margin: 0;
@@ -21,65 +15,49 @@
       }
     </style>
 
+
+
+
   </head>
-
-
-
   <body>
     <header><h1><%=name%></h1></header>
     <div id="map"></div>
     <script>
-      var MapID= <%=MapID%>
       function addMarker(data){
         console.log(data)
         var marker = new google.maps.Marker({
           map:map,
           position: {lat:data.latitudes, lng:data.longtitudes},
         });
-
         var infoWindow = new google.maps.InfoWindow({
           content: `<h1>${data.title}</h1><br></br><h3>${data.description}</h3>
                     <br><img src=${data.imageUrl} style="width:300px;">`
         });
-
         marker.addListener('click', function(){
           infoWindow.open(map, marker);
         });
-
       }
-
       let pins = <%-JSON.stringify(pins)%> ;
       console.log(pins);
-
-
-
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 43.658412, lng: -79.400037},
           zoom: 14
         });
-
       for(let i = 0; i < pins.length; i++){
         addMarker(pins[i]);
       }
-
-
-
 }//init closer
-
-
-
-
     </script>
 
 
     <script aync defer
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsAwJU71HsSnjN_EEj1osJHCFyC3kVdFQ&callback=initMap">
-
     </script>
 
 
-  <i class="far fa-heart oldColor" id="heart" value='MapID'></i>  
+
+
   </body>
 </html>

@@ -203,7 +203,7 @@ html,body {
     width: auto; 
     height: auto;
     cursor: pointer;
-    max-width: 100%;
+    max-width: 50%;
   }
   .button {
   background-color: #d73851; 

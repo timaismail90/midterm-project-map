@@ -47,28 +47,32 @@
               <div class="right col-lg-8">
                 <ul class="nav">
                   <li>My Edited Maps 🗺</li>
-                  <li><%=whichFavMap%><%=whichContribute%></li>
+                
                 </ul>
+               
+                <a href="/map/<%=whichContribute%>"><h4 class="name"><%=whichContributeName%></h4></a>
                 <span class="follow">Follow</span>
                 <div class="row gallery">
                   <div class="col-md-4">
-                     <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774813-photo4.jpg"/>
-                  </div>
-                  <div class="col-md-4">
-                     <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo6.jpg"/>
+                    <a href="/explore">
+                     <img src="http://dontai.com/wp/wp-content/uploads/2018/04/google-maps-stc-2018-4-4.png" />
+                     </a>
                   </div>
                   <ul class="nav">
                       <li>My Favourites ❤️</li>
                     </ul>
+                    <a href="/map/<%=whichFavMap%>"><h4 class="name"><%=whichFavMapName%></h4></a>
                     <div class="col-md-4">
-                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo5.jpg"/>
+                        <a href="/explore">
+                        <img src="http://dontai.com/wp/wp-content/uploads/2018/04/google-maps-stc-2018-4-4.png"/>
+                      </a>
                       </div>
                 </div>
               </div>
           </main>
         </div>
               
-      
+      <script var mapContribute = <%=whichContribute%></script>
     
     
       </body>

@@ -4,22 +4,42 @@
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-      
     <style>
-
       #map {
         height: 100%;
       }
-
       html, body {
         height: 80%;
         margin: 0;
         padding: 0;
       }
+      .heart {
+        background-color: red;
+        height: 30px;
+        transform: rotate(-45deg);
+        width: 30px;
+      }
+      .heart:before {
+        top: -15px;
+        left: 0;
+      }
+/*
+      .heart:after {
+        content: "";
+        background-color: red;
+        border-radius: 50%;
+        height: 30px;
+        position: absolute;
+        width: 30px;
+      }
+*/
     </style>
+
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+      <script type="text/javascript" src="/scripts/app.js"></script>
 
   </head>
   <body>
@@ -28,7 +48,7 @@
 
     <div id="table">
       <table>
-        <tr><td>Name:</td> <td><input type='text' id='title'/> </td> </tr>
+        <tr><td>Title:</td> <td><input type='text' id='title'/> </td> </tr>
         <tr><td>Description:</td> <td><input type='text' id='description'/> </td> </tr>
         <tr><td>Image Url:</td> <td><input type='text' id='imageUrl'/> </td> </tr>
         <tr><td></td><td><input type='button' value='Save' onclick='savePin()'/></td></tr>
@@ -36,30 +56,36 @@
     </div>
     <br></br>
     <form action="/edit/"  method="POST">
-      Name:<input id="titleEdit" type="text" name="title" > <br></br>
+      Title:<input id="titleEdit" type="text" name="title" > <br></br>
       Description:<input id="descriptionEdit" type="text" name="description" > <br></br>
       Image Url:<input id="imageUrlEdit" type="text" name="imageUrl"> <br></br>
       <input type='submit' value='edit' onclick='editPinRender()'/>
-    </form>`
+    </form>
 
 
     <div id="message">Location saved</div>
 
+    <span id='heart' style="font-size:500%;color:white;" onclick='favorite()'>&hearts;</span>
 
 
     <script>
-
-
       let mapId = <%=mapId%>; //setting the id on the current map we are working on
-
-
-
+      console.log("yea", mapId);
+      let favMap = <%=favMap%>;
+      console.log("yea", favMap);
+      function checkFavorite(){
+        if(favMap){
+          document.getElementById("heart").style.color = 'red'
+        } else{
+          document.getElementById("heart").style.color = 'white'
+        }
+      }
+      checkFavorite();
       function setMapOnAll(map) {
         for (var i = 0; i < markers.length; i++) {
           markers[i].setMap(map);  //google's markers has a function called setmap, which sets the marker at map.
         }
       }
-
       function addMarker(data){
         // console.log(data.id)
 //this creates pins on map from the data we have passed to it.
@@ -69,7 +95,6 @@
           pin:data
         });
         markers.unshift(marker) //places marker in an array called marker.
-
         var infoWindow = new google.maps.InfoWindow({
           content: `<h1>${data.title}</h1><br></br>
                       <h3>${data.description}</h3>
@@ -79,76 +104,51 @@
                         </form>
                         <input type='submit' value='edit' onclick='editPin()'/>`
         });
-
         marker.addListener('click', function(){
           infoWindow.open(map, marker);
           lastPin.unshift(data.id);  //places element in front of array
           lastTitle.unshift(data.title);
           lastDescription.unshift(data.description);
           lastUrl.unshift(data.imageUrl);
-
           console.log(lastTitle[0], lastDescription[0], lastUrl[0]);
-
         });
-
       }
-
-
-
-
       let map;
       let marker;
       let infowindow;
       let messagewindow;
-
       //when pin is clicked it information is placed in arrays, that information is first in the array.
       let lastPin = []; //pin id of last pin clicked.
       let lastTitle = [];
       let lastDescription = [];
       let lastUrl = [];
-
-
       let markers = [];
-
-
       let pins = <%-JSON.stringify(pins)%> ;
       // console.log(pins);
-
-
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 43.658412, lng: -79.400037},
           zoom: 14
         });
-
-
       for(let i = 0; i < pins.length; i++){
         addMarker(pins[i]);
       }
-
-
       google.maps.event.addListener(map, "click", function(event) {
         // console.log("im here");
-
         const title = document.getElementById("title").value;
         const description = document.getElementById("description").value;
         const imageUrl = document.getElementById("imageUrl").value;
-
         let pin = {
           "title":title,
           "description":description,
           "imageUrl":imageUrl
         }
-
         marker = new google.maps.Marker({
           position: event.latLng,
           map: map,
           pin:pin
         });
         markers.unshift(marker);
-
-
-
         var infoWindow = new google.maps.InfoWindow({
           content: `<h1>${title}</h1><br></br>
                       <h3>${description}</h3>
@@ -158,36 +158,24 @@
                         </form>
                        <input type='submit' value='edit' onclick='editPin()'/>`
         });
-
         // marker[title] = `${title}`;
         // marker[description] = `${description}`;
         // marker[imageUrl] = `${imageUrl}`;
-
         google.maps.event.addListener(marker, "click", function() {
           // lastPin.unshift(data.id);  //places element in front of array
           lastTitle.unshift(title);
           lastDescription.unshift(description);
           lastUrl.unshift(imageUrl);
-
           console.log(lastTitle[0], lastDescription[0], lastUrl[0]);
-
           infoWindow.open(map, marker);
         });
-
       });
-
-
 }//init closer
-
-
-
-
     </script>
 
 
     <script aync defer
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsAwJU71HsSnjN_EEj1osJHCFyC3kVdFQ&callback=initMap">
-
     </script>
 
 
@@ -195,3 +183,4 @@
 
   </body>
 </html>
+

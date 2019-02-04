@@ -10,6 +10,11 @@
 // });
 
 
+//use above code to maybe load pins better. also use ajax load function to load a specific element in html.
+//see documentation.
+
+
+
 function deletePin(){
   event.preventDefault();
 
@@ -66,7 +71,8 @@ function editPinRender(){
       "imageUrl": lastUrl[0],
       "titleNew": title,
       "descriptionNew": description,
-      "imageUrlNew": imageUrl
+      "imageUrlNew": imageUrl,
+      "maps_id": mapId
   }
 
   $.post("/edit", editData, function(data, status) {
@@ -103,25 +109,31 @@ function downloadUrl(url, callback) {
   request.send(null);
 }
 
+// document.getElementById("myBtn").addEventListener("click", changeColor);
 
-// $(document).ready(function() {
-//   console.log("heart")
-//   $("#heart").click(function() {
-//     event.preventDefault(event);
-//     console.log("heart")
-//     $(this).toggleClass('oldColor', 'newColor');
-//     $.ajax({
-//       type: "POST",
-//       url: '/favourites',
-//       data: {
-//         user_id: 1,
-//         map_id: MapID
-//         // $('#heart').val()
-//       },
-//       success: function(data) {}
-//     })
-//   })
-// })
+function favorite(){
+  //checking the color
+  let color = document.getElementById("heart").style.color
+
+  if(color === 'white'){
+    document.getElementById("heart").style.color = 'red'
+    let fav = true;
+    console.log(mapId);
+
+    $.post("/favorite/", {'maps_id':mapId, 'favorite': fav}, function(data, status) {
+      console.log(status);
+    });
+  } else {
+    document.getElementById("heart").style.color = 'white'
+    let fav = false;
+    console.log(mapId);
+
+    $.post("/favorite/",  {'maps_id':mapId, 'favorite': fav}, function(data, status) {
+      console.log(status);
+    });
+  }
+}
+
 
 
 
