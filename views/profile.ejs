@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Profile - Luno</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/profile.css" type="text/css" />
+
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+
+
+
+  </head>
+  <body>
+
+      <div class="container">
+          <header>
+            <i class="fa fa-bars" aria-hidden="true"></i>
+          </header>
+          <main>
+            <div class="row">
+              <div class="left col-lg-4">
+                <div class="photo-left">
+                  <img class="photo" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"/>
+                  <div class="active"></div>
+                </div>
+                <h4 class="name">@<%= userLogged%></h4>
+                <p class="info"><%= userLogged%>@gmail.com</p>
+
+                <p class="desc">Hi ! My name is <strong><%= userLogged%></strong>. I'm a UI/UX Designer from Paris, in France. I really enjoy photography and mountains.</p>
+                <form>
+                    <button formaction="/explore/" class="button button1">Explore 🔎</button>
+                  </form>
+                <div class="social">
+                  <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                  <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                  <i class="fa fa-pinterest-square" aria-hidden="true"></i>
+                  <i class="fa fa-tumblr-square" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="right col-lg-8">
+                <ul class="nav">
+                  <li>My Edited Maps 🗺</li>
+                  <li><%=whichFavMap%><%=whichFavMapName%><%=whichContribute%><%=whichContributeName%></li>
+                  <a id=test href="/map/2">here</a>
+
+                </ul>
+                <span class="follow">Follow</span>
+                <div class="row gallery">
+                  <div class="col-md-4">
+                     <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774813-photo4.jpg"/>
+                  </div>
+                  <div class="col-md-4">
+                     <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo6.jpg"/>
+                  </div>
+                  <ul class="nav">
+                      <li>My Favourites ❤️</li>
+                    </ul>
+                    <div id="col-md-4" href="www.google.com" >
+
+                        <img href="www.google.com" src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo5.jpg"/>
+
+                      </div>
+                </div>
+              </div>
+          </main>
+        </div>
+
+      <script type="text/javascript">
+        let whichFavMap = <%=whichFavMap%>;
+        let favLink = "<a href='http://www.yahoo.com'>"
+        document.getElementById("test").innerHTML = favLink;
+
+      </script>
+
+
+      </body>
+    </html>

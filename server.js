@@ -24,6 +24,13 @@ app.use(cookieSession({
 let mapId = "";
 let userId = "";
 
+
+let whichFavMap = "" ; //only work for one map.
+let whichContribute = ""; //only work for one map.
+let whichFavMapName = "";
+let whichContributeName = "";
+
+
 //what user is logged in last. User must exist in database for knex to work .
 let userLogged = "";
 
@@ -99,27 +106,27 @@ app.get('/map/:id', (request, respond) => {
 
 
 //recieves add pin information
-  app.get('/create/createPin', (request, respond) => {
-    mapId = request.query.maps_id;
-    knex('pins').insert(request.query)
-    .then( function (result) {
-      knex('users')
-        .where('name', userLogged)
-        .then((user) => {
-        console.log("OOO", user, user[0].id);
-        knex('contributors').insert({'maps_id': mapId, 'users_id': user[0].id})
-        .then(function (result) {
-        respond.json({success: true, message: 'ok'});
-        })
-      });
+app.get('/create/createPin', (request, respond) => {
+  mapId = request.query.maps_id;
+  knex('pins').insert(request.query)
+  .then( function (result) {
+    knex('users')
+      .where('name', userLogged)
+      .then((user) => {
+      console.log("OOO", user, user[0].id);
+      knex('contributors').insert({'maps_id': mapId, 'users_id': user[0].id})
+      .then(function (result) {
+      respond.json({success: true, message: 'ok'});
+      })
     });
-    console.log(request.query);
-    // pinData = request.
-
-
-
-
   });
+  console.log(request.query);
+  // pinData = request.
+
+
+
+
+});
 
 
 
@@ -222,7 +229,6 @@ app.post('/create/', (request, respond) => {
       mapId = maps[0].id;
       console.log(maps);
       console.log("tst", mapId)
-      respond.redirect(`/map/${mapId}`); //newly created id.
       knex('users')
         .where('name', userLogged)
         .then((user) => {
@@ -292,8 +298,6 @@ app.post('/favorite/', (request, respond) => {
 
 
 
-  respond.send('888');
-
 });
 
 
@@ -340,8 +344,80 @@ app.post('/edit/', (request, respond) => {
 
 
 
+app.get('/profile', (req, res) => {
+  knex('users')
+  .where('name', userLogged)
+  .then((user) => {
+    knex('favoriteMaps')
+    .where('users_id', user[0].id)
+    .then((map) => {
+      whichFavMap = map[0].maps_id;
+      console.log(whichFavMap);
+        knex('users')
+        .where('name', userLogged)
+        .then((user) => {
+          knex('contributors')
+          .where('users_id', user[0].id)
+          .then((map2) => {
+            whichContribute = map2[0].maps_id;
+            console.log(whichContribute);
+            knex('maps')
+            .where('id', whichFavMap)
+            .then((mapName) =>{
+              whichFavMapName = mapName[0].name
+              console.log("hello",mapName[0].name);
+              knex('maps')
+              .where('id', whichContribute)
+              .then((mapName2) => {
+                whichContributeName = mapName2[0].name
+                console.log('bye', mapName2[0].name)
+                let templateVars = {
+                  whichFavMap:whichFavMap,
+                  whichContribute:whichContribute,
+                  userLogged:userLogged,
+                  whichContributeName:whichContributeName,
+                  whichFavMapName,whichFavMapName
+                  }
+               res.render('profile', templateVars)
+                })
+            })
+
+          });
+        });
+    });
+  });
+});
+
+
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
 
+
+
+//SUPPOSE I HAD PROFILE ROUTE.
+
+// app.get ....
+// app.get('/profile', (req, res) => {
+//   let templateVars = {userLogged: userLogged};
+
+
+// knex('users')
+//   .where('name', userLogged)
+//   .then((user) => {
+//     knex('favoriteMaps')
+//     .where('users_id', user[0].id)
+//     .then((map) => {
+//       //get map info set to variable .
+//       knex('users')
+//     }
+
+
+
+//   res.render('profile', templateVars)
+
+
+// // });
+// let templateVars = {userLogged: userLogged};
