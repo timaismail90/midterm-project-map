@@ -32,6 +32,10 @@ let mapName="";
 
 let pinData = [];
 
+let whichContribute = ""; 
+
+let whichFavMap = ""; 
+
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -76,10 +80,42 @@ app.get('/explore', (req, res) => {
   res.render('explore')
 });
 
+// app.get('/profile', (req, res) => {
+//   let templateVars = {userLogged: userLogged}; 
+//   res.render('profile', templateVars)
+// });
+
 app.get('/profile', (req, res) => {
-  let templateVars = {userLogged: userLogged}; 
+  knex('users')
+  .where('name', userLogged)
+  .then((user) => {
+    knex('favoriteMaps')
+    .where('users_id', user[0].id)
+    .then((map) => {
+      whichFavMap = map[0].maps_id;
+      console.log(whichFavMap);
+    });
+  });
+ 
+  knex('users')
+  .where('name', userLogged)
+  .then((user) => {
+    knex('contributors')
+    .where('users_id', user[0].id)
+    .then((map) => {
+      whichContribute = map[0].maps_id;
+      console.log(whichContribute);
+    });
+  });
+  let templateVars = {
+    whichFavMap:whichFavMap,
+    whichContribute:whichContribute,
+    userLogged:userLogged
+  }
+ 
   res.render('profile', templateVars)
-});
+ 
+ });
 
 app.get('/build', (req, res) => {
   res.render('buildMapForm')
