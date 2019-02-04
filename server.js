@@ -167,6 +167,26 @@ app.get('/map/:id', (request, respond) => {
     })
   };
 });
+app.get('/create/createPin', (request, respond) => {
+ 
+  mapId = request.query.maps_id;
+  knex('pins').insert(request.query)
+  .then( function (result) {
+    knex('users')
+      .where('name', userLogged)
+      .then((user) => {
+      console.log("OOO", user, user[0].id);
+      knex('contributors').insert({'maps_id': mapId, 'users_id': user[0].id})
+      .then(function (result) {
+      respond.json({success: true, message: 'ok'});
+      })
+    });
+  });
+  console.log(request.query);
+  // pinData = request
+
+});
+
 
 //this will go under map id when cookie is enabled. this is for adding/edit/delete pins
 app.get('/create/:id', (request, respond) => {
@@ -221,26 +241,6 @@ app.get('/create/:id', (request, respond) => {
 });
 });
 
-
-//recieves add pin information
-app.get('/create/createPin', (request, respond) => {
-  mapId = request.query.maps_id;
-  knex('pins').insert(request.query)
-  .then( function (result) {
-    knex('users')
-      .where('name', userLogged)
-      .then((user) => {
-      console.log("OOO", user, user[0].id);
-      knex('contributors').insert({'maps_id': mapId, 'users_id': user[0].id})
-      .then(function (result) {
-      respond.json({success: true, message: 'ok'});
-      })
-    });
-  });
-  console.log(request.query);
-  // pinData = request
-
-});
 
 
 
