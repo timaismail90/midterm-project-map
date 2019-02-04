@@ -77,6 +77,7 @@ function editPinRender(){
 
   $.post("/edit", editData, function(data, status) {
     console.log(status);
+
   });
 
 }

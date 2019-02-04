@@ -122,10 +122,6 @@ app.get('/create/createPin', (request, respond) => {
   });
   console.log(request.query);
   // pinData = request.
-
-
-
-
 });
 
 

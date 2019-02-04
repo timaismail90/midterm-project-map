@@ -46,9 +46,9 @@
               </div>
               <div class="right col-lg-8">
                 <ul class="nav">
-                  <li>My Edited Maps 🗺</li>
+                  <li >My Edited Maps 🗺</li>
                   <li><%=whichFavMap%><%=whichFavMapName%><%=whichContribute%><%=whichContributeName%></li>
-                  <a id=test href="/map/2">here</a>
+                  <a id='test' href="/map/<%=whichFavMap%>">here</a>
 
                 </ul>
                 <span class="follow">Follow</span>
@@ -74,7 +74,7 @@
 
       <script type="text/javascript">
         let whichFavMap = <%=whichFavMap%>;
-        let favLink = "<a href='http://www.yahoo.com'>"
+        let favLink = "href='http://www.yahoo.com'"
         document.getElementById("test").innerHTML = favLink;
 
       </script>
