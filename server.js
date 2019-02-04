@@ -320,20 +320,24 @@ app.post('/edit/', (request, respond) => {
         .returning('*')
         .then((newPin) => {
           console.log('newPin:', newPin);
+            //giving user a contribution
+            knex('users')
+              .where('name', userLogged)
+            .then((user) => {
+              console.log("OOO", user, user[0].id);
+              knex('contributors').insert({'maps_id': request.body.maps_id, 'users_id': user[0].id})
+              .then(function (result) {
+                console.log("WHERE ARE YOU");
+                respond.json({success: true, message: 'ok'});
+                // respond.redirect(`/create/${request.body.maps_id}`)
+                // respond.redirect('back');
+              })
+            });
         })
       }
     })
 
-  //giving user a contribution
-  knex('users')
-    .where('name', userLogged)
-  .then((user) => {
-    console.log("OOO", user, user[0].id);
-    knex('contributors').insert({'maps_id': request.body.maps_id, 'users_id': user[0].id})
-    .then(function (result) {
-      respond.json({success: true, message: 'ok'});
-    })
-  });
+
 
 });
 
